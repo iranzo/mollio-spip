@@ -1,0 +1,16 @@
+<B_rubriques>
+	<div class="featurebox">
+		<h3>
+			<:rubriques:>
+		</h3>
+		<ul>
+			<BOUCLE_rubriques(RUBRIQUES) {racine} {par titre}>
+				<li>
+					<a href="#URL_RUBRIQUE" [title="(#DESCRIPTIF|textebrut|entites_html)"]>
+						[(#LOGO_RUBRIQUE|center|#URL_RUBRIQUE|image_reduire{20})]#TITRE
+					</a>
+			        </li>
+			</BOUCLE_rubriques>
+		</ul>
+	</div>
+</B_rubriques>

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
+<!--
+Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
+Community: Mollio http://www.mollio.org $
+License: Released Under the "Common Public License 1.0", 
+http://www.opensource.org/licenses/cpl.php
+License: Released Under the "Creative Commons License", 
+http://creativecommons.org/licenses/by/2.5/
+License: Released Under the "GNU Creative Commons License", 
+http://creativecommons.org/licenses/GPL/2.0/
+Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
+-->
+<head>
+	[(#INCLURE{fond=css})]
+	[(#INCLURE{fond=header})]
+	<title>#NOM_SITE_SPIP</title>
+	<meta name="Keywords" content="<BOUCLE_articulosclav(ARTICLES){type_mot!=Design}{","}><BOUCLE_keywords(MOTS){id_article}{doublons}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords></BOUCLE_articulosclav>"/>
+	<meta name="Description" content="<BOUCLE_desc(ARTICLES){titre_mot="Frase"}{par date}{inverse}{0,1}>[(#DESCRIPTIF|textebrut)]</BOUCLE_desc>"/>
+</head>
+<body id="type-c">
+<div id="wrap">
+	[(#INCLURE{fond=cabecera}{id=1}{lang})]
+	<div id="content-wrap">
+		<div id="utility">
+			[(#INCLURE{fond=sommaire_left_mods}{lang})]
+		</div>
+		<div id="content">
+			<div id="breadcrumb">
+				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique=0}{lang})]
+			</div>
+				[(#INCLURE{fond=mod_nota}{lang})]
+					<h1><:articles_recents:></h1>
+					<BOUCLE_modrub1(RUBRIQUES){par date}{inverse}{unique}{titre_mot="rubrique1"}><BOUCLE_art_modrub1(ARTICLES){id_secteur=#ID_RUBRIQUE}{unique}></BOUCLE_art_modrub1></BOUCLE_modrub1>
+					<BOUCLE_modrub2(RUBRIQUES){par date}{inverse}{unique}{titre_mot="rubrique2"}><BOUCLE_art_modrub2(ARTICLES){id_secteur=#ID_RUBRIQUE}{unique}></BOUCLE_art_modrub2></BOUCLE_modrub2>
+					<BOUCLE_modrub3(RUBRIQUES){par date}{inverse}{unique}{titre_mot="rubrique3"}><BOUCLE_art_modrub3(ARTICLES){id_secteur=#ID_RUBRIQUE}{unique}></BOUCLE_art_modrub3></BOUCLE_modrub3>
+					<BOUCLE_modrub4(RUBRIQUES){par date}{inverse}{unique}{titre_mot="rubrique4"}><BOUCLE_art_modrub4(ARTICLES){id_secteur=#ID_RUBRIQUE}{unique}></BOUCLE_art_modrub4></BOUCLE_modrub4>
+					<BOUCLE_modrub5(RUBRIQUES){par date}{inverse}{unique}{titre_mot="rubrique5"}><BOUCLE_art_modrub5(ARTICLES){id_secteur=#ID_RUBRIQUE}{unique}></BOUCLE_art_modrub5></BOUCLE_modrub5>
+					<BOUCLE_design_articles(ARTICLES){type_mot=Design}{doublons}></BOUCLE_design_articles>
+					<BOUCLE_last_articles(ARTICLES){type_mot!==Design}{par date}{inverse}{doublons}{pagination}>
+						[(#INCLURE{fond=datos_articulo}{id_article}{lang})]
+					</BOUCLE_last_articles>
+					<hr/>
+					<div class="pagination">
+						<p>
+							[(#PAGINATION{page})]
+							<h4>
+								<:leermas:>
+							</h4>
+						</p>
+					</div>
+					</B_last_articles>
+			<!--
+			<div class="pagination">
+				<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
+				<h4>Page 1 of 5</h4>
+			</div>
+			-->
+			<hr/>
+			[(#INCLURE{fond=pie}{lang})]
+		</div>
+		<div id="sidebar">
+			[(#INCLUDE{fond=sommaire_right_mods}{lang})]
+		</div>		
+	</div>
+</div>
+</body>
+</html>

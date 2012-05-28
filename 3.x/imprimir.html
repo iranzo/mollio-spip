@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<BOUCLE_articulos(ARTICLES) {id_article}>
+<html lang="#LANG">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=#CHARSET"/>
+	<BOUCLE_head(ARTICLES){id_article}>
+	        <title>[(#TITRE|textebrut)]</title>
+                <meta name="Description" content="[(#DESCRIPTIF|supprimer_tags)]"/>
+	        <meta name="Keywords" content="<BOUCLE_keywords(MOTS){id_article}{","}>[(#TITRE|supprimer_tags)] </BOUCLE_keywords>"/>
+	        <meta name="Author" content="<BOUCLE_author(AUTEURS){id_article}{","}>[(#NOM|supprimer_tags)][((#EMAIL|supprimer_tags))]</BOUCLE_author>"/>
+	</BOUCLE_head>
+	<link rel="stylesheet" href="#DOSSIER_SQUELETTE/css/pdf.css" type="text/css">
+	<link rel="alternate" type="application/rss+xml" title="[(#NOM_SITE_SPIP|entites_html)]" href="#URL_PAGE{backend}"/>
+	<link id="rorlink" rel="meta" type="application/rdf+xml" title="ROR" href="#URL_PAGE{ror}"/>
+	<meta name="robot" content="follow, index, all"/>
+	<meta name="revisit-after" content="1 days"/>
+	<link rel="start" title="<:accueil:>" href="#URL_SITE_SPIP/" alt="<:accueil_site:>"/>
+	<link rel="index" title="<:carte:>" href="#URL_PAGE{plan}"/>
+	<link rel="shortcut icon" type="images/x-icon" href="#DOSSIER_SQUELETTE/images/favicon.ico"/>
+	<meta name="robots" content="index,follow"/>
+</head>
+
+<body>
+
+<!-- Cuerpo -->
+
+<div id="content"> <!-- #content wrapper -->
+
+<!-- Begin #main-content -->
+
+<div id="main-content">
+
+[(#SURTITRE|centrer)]
+[(#LOGO_ARTICLE_RUBRIQUE|left|#URL_ARTICLE|image_reduire{64})]<h1>[(#TITRE|centrer)]</h1>
+[(#SOUSTITRE)]
+
+  <h2 class="date-header">
+            [(#DATE|nom_jour)] [(#DATE|affdate)]
+  </h2>
+  [<p class="post-footer"><:enviadopor:> (#LESAUTEURS)</p>]
+  [<h3 align="right"><:enlace:>: <a href="#URL_SITE">(#NOM_SITE)</a></h3>]
+
+  <p>
+ 
+ 
+  #FORMULAIRE_SIGNATURE
+  
+   
+   
+   [(#CHAPO|justifier)<P>]
+   [(#TEXTE|justifier)<P>]
+   [(#PS|justifier)<P>]
+   [(#NOTES|justifier)<P>]
+   
+<p>   
+   <BOUCLE_documents_joints(DOCUMENTS) {id_article} {mode=document} {doublons} {"<br>"}>
+	[(#LOGO_DOCUMENT|#URL_DOCUMENT)][<br>(#TITRE)][ - (#DESCRIPTIF)]
+   </BOUCLE_documents_joints>
+</div><!-- End #main-content -->
+</div><!-- End #content -->
+
+</body>
+</html>
+</BOUCLE_articulos>

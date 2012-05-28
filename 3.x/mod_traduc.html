@@ -1,0 +1,12 @@
+<BOUCLE_articul(ARTICLES){id_article}>
+<B_traductions>
+	<div class="featurebox">
+		<h3><:traducciones:></h3>
+		<ul>
+			<BOUCLE_traductions(ARTICLES){traduction}{doublons}{exclus}{par date}{inverse}>
+				<li>[<a href="#URL_ARTICLE" dir="#LANG_DIR">(#TITRE)</a>] [<em> (#LANG)</em>]</li>
+			</BOUCLE_traductions>
+		</ul>
+	</div>
+</B_traductions>
+</BOUCLE_articul>

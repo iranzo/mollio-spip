@@ -1,0 +1,21 @@
+#SET{articulo,#ID_ARTICLE}
+#SET{rubrique,#ID_RUBRIQUE}
+#SET{lang,#LANG}
+#SET{autor,#ID_AUTEUR}
+#SET{breve,#ID_BREVE}
+<B_auteur_cfg>
+<BOUCLE_auteur_cfg(ARTICLES){titre_mot="_is_auteur"}{0,1}>
+	<BOUCLE_auteur_elemcfg(ARTICLES){id_article}{titre_mot="_is_config"}{0,1}>
+		<BOUCLE_auteur_cfg_agenda(ARTICLES){id_article}{titre_mot="_has_agenda"}{0,1}>
+			[(#INCLURE{fond=mod_agenda}{lang=#GET{lang}})]
+		</BOUCLE_auteur_cfg_agenda>
+		<BOUCLE_auteur_cfg_breves(ARTICLES){id_article}{titre_mot="_has_breves"}{0,1}>
+			[(#INCLURE{fond=mod_breves}{lang=#GET{lang}})]
+		</BOUCLE_auteur_cfg_breves>
+		[<div class="featurebox"><h3><:envoyer_message:></h3>(#FORMULAIRE_ECRIRE_AUTEUR)</div>]		
+	</BOUCLE_auteur_elemcfg>
+</BOUCLE_auteur_cfg>
+	[(#INCLURE{fond=mod_agenda}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_breves}{lang=#GET{lang}})]
+	[<div class="featurebox"><h3><:envoyer_message:></h3>(#FORMULAIRE_ECRIRE_AUTEUR)</div>]	
+<//B_auteur_cfg>

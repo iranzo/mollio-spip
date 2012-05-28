@@ -1,0 +1,10 @@
+<B_top5popu>
+<div class="featurebox">
+	<h3><:articles_populaires:></h3>
+	<ul>
+		<BOUCLE_top5popu(ARTICLES){type_mot!="Design"}{par popularite}{inverse}{0,5}>
+			[<li>[(#LOGO_ARTICLE_RUBRIQUE|#URL_ARTICLE|image_reduire{20})]<a href="#URL_ARTICLE">(#TITRE)</a></li>]
+		</BOUCLE_top5popu>         		
+	</ul>
+</div>
+</B_top5popu>

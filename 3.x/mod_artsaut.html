@@ -1,0 +1,20 @@
+<B_autart>
+<div class="featurebox">
+<h3 class="sidebar-title"><:meme_auteur:></h3>
+<BOUCLE_autart(AUTEURS){id_article}>
+	<B_ar>
+	<ul>
+	
+		<li>
+		[(#NOM):]
+		<ul>
+	 		<BOUCLE_ar(ARTICLES){id_auteur}{type_mot!=Design}{par hasard}{0,5}{exclus}>
+				[<li>[(#LOGO_ARTICLE_RUBRIQUE|#URL_ARTICLE|image_reduire{20})]<a href="#URL_ARTICLE">(#TITRE)</a></li>]
+			</BOUCLE_ar>
+		</ul>
+		</li>
+	</ul>
+	</B_ar>
+</BOUCLE_autart>
+</div>
+</B_autart>

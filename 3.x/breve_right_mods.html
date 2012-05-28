@@ -1,0 +1,23 @@
+#SET{articulo,#ID_ARTICLE}
+#SET{rubrique,#ID_RUBRIQUE}
+#SET{lang,#LANG}
+#SET{autor,#ID_AUTEUR}
+#SET{breve,#ID_BREVE}
+<B_brev_cfg_right>
+<BOUCLE_brev_cfg_right(ARTICLES){titre_mot="_is_breve"}{0,1}>
+	<BOUCLE_brev_cfg_right_elem(ARTICLES){id_article}{titre_mot="_is_config"}{0,1}>
+		<BOUCLE_som_cfg_agenda(ARTICLES){id_article}{titre_mot="_has_agenda"}{0,1}>
+			[(#INCLURE{fond=mod_agenda}{lang=#GET{lang}})]
+		</BOUCLE_som_cfg_agenda>
+		<BOUCLE_som_cfg_breves(ARTICLES){id_article}{titre_mot="_has_breves"}{0,1}>
+			[(#INCLURE{fond=mod_breves}{lang=#GET{lang}})]
+		</BOUCLE_som_cfg_breves>
+		<BOUCLE_brev_cfg_right_keywords(ARTICLES){id_article}{titre_mot="_has_keywords"}{0,1}>
+			[(#INCLURE{fond=mod_keywordbrev}{id_breve=#GET{breve}}{lang=#GET{lang}})]
+		</BOUCLE_brev_cfg_right_keywords>
+	</BOUCLE_brev_cfg_right_elem>
+</BOUCLE_brev_cfg_right>
+	[(#INCLURE{fond=mod_agenda}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_breves}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_keywordbrev}{id_breve=#GET{breve}}{lang=#GET{lang}})]
+<//B_brev_cfg_right>

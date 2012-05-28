@@ -1,0 +1,17 @@
+<div id="footer">
+	<p>
+		<a href="#URL_PAGE{backend}"><img  alt="XML/RSS" src="#DOSSIER_SQUELETTE/images/feed.png" border="0" align="middle"/></a>
+	 <B_creditos> | <a href="<BOUCLE_creditos(ARTICLES){titre_mot="Creditos"}{par
+		date}{inverse}{0,1}>#URL_ARTICLE</BOUCLE_creditos>"><:creditos:></a></B_creditos> |
+	 Esqueleto <a href="http://alufis35.uv.es/Esqueleto-basado-en-Mollio-org.html">Mollio para SPIP</a>
+	</p>
+</div>
+<div id="poweredby">
+	<BOUCLE_banner(ARTICLES){titre_mot="Banner_cabecera"}{par date}{inverse}{age_redac<0}{0,1}>
+	</BOUCLE_banner>
+			<BOUCLE_banner2(ARTICLES){titre_mot="Banner_cabecera"}{par date}{inverse}{0,1}>
+			</BOUCLE_banner2>
+				<img src="#DOSSIER_SQUELETTE/images/mollio.gif" alt="FarCry - Mollio" />
+			<//B_banner2>
+	<//B_banner>
+</div>

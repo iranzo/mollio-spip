@@ -1,0 +1,203 @@
+#CACHE{7200}
+<BOUCLE_rubprincipale(RUBRIQUES){id_rubrique}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
+<!--
+Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
+Community: Mollio http://www.mollio.org $
+License: Released Under the "Common Public License 1.0", 
+http://www.opensource.org/licenses/cpl.php
+License: Released Under the "Creative Commons License", 
+http://creativecommons.org/licenses/by/2.5/
+License: Released Under the "GNU Creative Commons License", 
+http://creativecommons.org/licenses/GPL/2.0/
+Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
+-->
+<head>
+	[(#INCLURE{fond=css})]
+	[(#INCLURE{fond=header})]
+	<title>[(#TITRE|supprimer_numero|textebrut)] - #NOM_SITE_SPIP</title>
+	<meta name="Keywords" content="<BOUCLE_articulosclav(ARTICLES){type_mot!=Design}{id_rubrique}{","}><BOUCLE_keywords(MOTS){id_article}{doublons}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords></BOUCLE_articulosclav>"/>
+	<meta name="Description" content="<BOUCLE_desc(ARTICLES){titre_mot="Frase"}{par date}{inverse}{0,1}>[(#DESCRIPTIF|textebrut)]</BOUCLE_desc>"/>
+	[<meta name="Description" content="(#DESCRIPTIF|textebrut)"/>]
+	<link rel="alternate" type="application/rss+xml" title="#NOM_SITE_SPIP (#TITRE) RSS" href="[(#URL_PAGE{backend}|parametre_url{'id_rubrique',#ID_RUBRIQUE})]"/>
+</head>
+<body id="type-c">
+<div id="wrap">
+	[(#INCLURE{fond=cabecera}{id=0}{lang})]
+	<div id="content-wrap">
+		<div id="utility">
+			[(#INCLURE{fond=rubrique-agenda_left_mods}{id_rubrique}{lang})]
+		</div>
+		<div id="content">
+			<div id="breadcrumb">
+				[(#INCLURE{fond=mod_jerarquia}{id_article}{lang})]
+			</div>
+					<h1>[(#LOGO_RUBRIQUE|right||image_reduire{64})][(#TITRE|supprimer_numero)]</h1>
+					[(#DESCRIPTIF)]
+					[<hr/>(#TEXTE)]
+					[<div class="featurebox">(#NOTES)</div>]					
+				<p class="ie5bug">&nbsp;</p>
+<?php
+$months = array('', '<:enero:>', '<:febrero:>', '<:marzo:>', '<:abril:>','<:mayo:>', '<:junio:>', '<:julio:>','<:agosto:>','<:septiembre:>','<:octubre:>','<:noviembre:>', '<:diciembre:>');
+$days = array('<:domingo:>', '<:lunes:>', '<:martes:>', '<:miercoles:>', '<:jueves:>', '<:viernes:>','<:sabado:>');
+if (!isset($date) || $date == '') $date = date('Y-m-d');
+
+ereg("^([0-9]{4})-([0-9]{2})-([0-9]{2}).*$", $date, $regs);
+$cal_day = mktime(0, 0, 0, $regs[2], $regs[3], $regs[1]);
+
+$D = date('d', $cal_day);
+$M = date('m', $cal_day);
+$Y = date('Y', $cal_day);
+
+// Le Menu de sélection de genre
+$mot_cle = array('<:todo:>', '<BOUCLE_LstMotsClefs(MOTS){type="Design"}{titre="Agenda"}{par titre}{"', '"}>[(#TITRE|texte_script)]</BOUCLE_LstMotsClefs>');
+if (!isset($genre)) $genre = "Todo";
+
+$titrePage = 'Agenda - '.$months[intval($M)].' '.$Y;
+
+// Liste des rubriques de l agenda
+$branche = array();
+<BOUCLE_courante(RUBRIQUES){racine}>
+	<BOUCLE_branche(RUBRIQUES){branche}>
+		$branche[] = #ID_RUBRIQUE;
+	</BOUCLE_branche>
+</BOUCLE_courante>
+
+// Construction liste des événements (1 liste par jour => liste des jours)
+$events = array();
+<BOUCLE_evts_com(ARTICLES){age_relatif_redac> -38}{age_relatif_redac < 38}{par date_redac}{titre_mot="Agenda"}>
+	if ('#DATE_REDAC' != '' && in_array(#ID_RUBRIQUE, $branche)) {
+		$dateEvt = ereg_replace("^([0-9]{4})-([0-9]{2})-([0-9]{2}).*$", "\\1\\2\\3", '#DATE_REDAC');
+		if (!isset($events[$dateEvt])) { $events[$dateEvt] = array(); }
+		$res="";
+                ereg("($genre)",'<BOUCLE_genre(MOTS){id_article}{type="Design"}{titre="Agenda"}>[(#TITRE|texte_script)]</BOUCLE_genre>', $res);
+		if (($genre=='Todo') || ($genre==$res[1])) {
+			$events[$dateEvt][] = array('rub' => #ID_RUBRIQUE, 'link' => '#URL_ARTICLE', 'title' => '[(#TITRE|texte_script)]', 'logo' => '[<img src="IMG/(#LOGO_ARTICLE_RUBRIQUE||extraire_attribut{src}|url_absolue)">]');
+		}
+	}
+</BOUCLE_evts_com>
+?>
+<!-- Fabrication du tableau : l'en tête -->
+<form name="navigation" method="get" action="">
+<table cellpadding="5" cellspacing="0" align="center" border="1" class="agenda">
+<tr>
+<th colspan="7" class="agendaNav">
+	<a href="spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&date=<?php echo (($M - 1> 0) ? $Y : ($Y - 1)); ?>-<?php printf('%02d', ($M - 1)> 0 ? ($M - 1) : 12); ?>-01&genre=<?php echo $genre; ?>"><img src="#DOSSIER_SQUELETTE/images/prev.png" title="<:previo:>" border="0" alt="<:previo:>"/></a>
+	<select name="var_nav_month">
+	<?php
+	for($i = 1; $i < 13; $i++) {
+		echo '<option value="'.sprintf('%02d', $i).'"'.($i == $M ? ' selected="selected" ' : '').'>'.$months[$i].'</option>';
+	}
+	?>
+	</select>
+	<select name="var_nav_year">
+	<?php
+	for($i = 2000; $i < 2011; $i++) {
+		echo '<option value="'.$i.'"'.($i == $Y ? ' selected="selected" ' : '').'>'.$i.'</option>';
+	}
+	?>
+	</select>
+        <!-- Construction Menu sélection -->
+	<select name="var_nav_cle">
+	<?php
+	for($i = 0; $i < count($mot_cle); $i++) {
+                $t = strcmp($mot_cle[$i], $genre);
+		echo '<option value="'.$mot_cle[$i].'"'.($t == 0 ? ' selected="selected"' : '').'>'.$mot_cle[$i].'</option>';
+	}
+	?>
+	</select>
+	<input type="button" value="<:aceptar:>" onclick="document.location.href='spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&amp;date=' + window.document.navigation.var_nav_year.value + '-' + window.document.navigation.var_nav_month.value + '-01&amp;genre=' + window.document.navigation.var_nav_cle.value ; return false;"/>
+	<a href="spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&date=<?php echo (($M + 1 < 13) ? $Y : ($Y + 1)); ?>-<?php printf('%02d', ($M + 1) < 13 ? ($M + 1) : 1); ?>-01&genre=<?php echo $genre; ?>"><img src="#DOSSIER_SQUELETTE/images/sig.png" title="<:siguiente:>" border="0" alt="<:siguiente:>"/></a>
+	<input type="button" value="<:irahoy:>" onclick="document.location.href='spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo (date('Y-m-d')); ?>&amp;genre=<?php echo $genre ?>'; return false;"/>
+</th>
+</tr>
+<!-- Fabrication du tableau : les données -->
+<tr> 
+<?php
+for($i = 1; $i < 8; $i++) { echo '<th width="14%" class="agendaHead">'.$days[$i%7].'</th>'; }
+$TempD = 1;
+$Time = mktime(0, 0, 0, $M, 1, $Y);
+if(date('w', $Time) != 1) {
+        // jours du mois precedent
+	echo '</tr><tr>';
+	$tmp = '';
+	while(date('w', $Time) != 1) {
+		$TempD--;
+		$Time = mktime(0, 0, 0, $M, $TempD, $Y);
+		$case = '<td width="14%" height="50" valign="top" class="agendaNotThisMonth">';
+		$case .= date('j', $Time);
+		if (isset($events[date('Ymd', $Time)])) {
+			while (list(, $event) = each($events[date('Ymd', $Time)])) {
+				$case .= '<br/>'.$event['logo'].'<a href="'.$event['link'].'">'.$event['title'].'</a>';
+			}
+		}
+		$case .= '</td>';
+		$tmp = $case.$tmp;
+	}
+	echo $tmp;
+}
+$TempD = 1;
+$Time = mktime(0, 0, 0, $M, 1, $Y);
+while((date('m', $Time) == $M) || (date('w', $Time) != 1)) {
+	if(date('w', $Time) == 1) { echo '</tr><tr>'; }
+	echo '<td width="14%" height="50" valign="top" ';
+	echo ' class="agenda'.(date('m', $Time) != $M ? 'Not' : '').'This'.(date('Ymd', $Time) == date('Ymd') ? 'Day' : 'Month').'">';
+	echo date('j', $Time);
+	if (isset($events[date('Ymd', $Time)])) {
+		while (list(, $event) = each($events[date('Ymd', $Time)])) {
+			echo '<br/>'.$event['logo'].'<a href="'.$event['link'].'">'.$event['title'].'</a>';
+		}
+	}
+	echo '</td>';
+	$TempD++;
+	$Time = mktime(0, 0, 0, $M, $TempD, $Y);
+}
+?>
+</tr>
+</table>
+</form>
+<hr/>
+<!-- Les thèmes avec récursivité -->
+<h2><:leyenda:>: </h2>
+<br/>
+<BOUCLE_themes(RUBRIQUES){titre_mot="Agenda"}>
+	<ul class="agendaThemes">
+		<li>
+			[(#LOGO_RUBRIQUE|||image_reduire{64})]
+			<a href="spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo $Y ; ?>-<?php printf('%02d', $M); ?>-01&amp;genre=<?php echo $genre; ?>">#TITRE</a>
+			<B_sous_rubriques1>			
+			<ul class="agendaThemes">
+			<BOUCLE_sous_rubriques1(RUBRIQUES){id_parent}{par titre}>
+				<li>
+					[<img src="(#LOGO_RUBRIQUE||extraire_attribut{src}|url_absolue)">]
+					<a href="spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo $Y ; ?>-<?php printf('%02d', $M ); ?>-01&amp;genre=<?php echo $genre; ?>">#TITRE</a>
+						<B_sous_rubriques>
+						<ul class="agendaThemes">
+							<BOUCLE_sous_rubriques(BOUCLE_sous_rubriques1)></BOUCLE_sous_rubriques>
+						</ul>
+						</B_sous_rubriques>
+				</li>
+			</BOUCLE_sous_rubriques1>
+			</ul>
+			</B_sous_rubriques1>
+		</li>
+	</ul>
+</BOUCLE_themes>
+			<!--
+			<div class="pagination">
+				<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
+				<h4>Page 1 of 5</h4>
+			</div>
+			-->
+			<hr/>
+			[(#INCLURE{fond=pie}{lang})]
+		</div>
+		<div id="sidebar">
+			[(#INCLURE{fond=rubrique-agenda_right_mods}{id_rubrique}{lang})]
+		</div>
+	</div>
+</div>
+</body>
+</html>
+</BOUCLE_rubprincipale>

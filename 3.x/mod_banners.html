@@ -1,0 +1,16 @@
+<B_banner>
+	<div class="featurebox">
+		<BOUCLE_banner(ARTICLES){titre_mot="Banners"}{par date}{inverse}{age_redac<0}{0,5}{"<p>"}>
+			[(#LOGO_ARTICLE|center|#URL_SITE|image_reduire{200,0}|inserer_attribut{'alt',#TITRE})]
+		</BOUCLE_banner>
+	</div>
+</B_banner>
+<B_banneralt>
+	<div class="featurebox" align="center">
+		<BOUCLE_banneralt(ARTICLES){titre_mot="Banners"}{par date}{inverse}{0,5}{"<p>"}>
+			[(#LOGO_ARTICLE|center|#URL_SITE|image_reduire{200,0}|inserer_attribut{'alt',#TITRE})]
+		</BOUCLE_banneralt>
+	</div>
+</B_banneralt>
+<//B_banner>
+

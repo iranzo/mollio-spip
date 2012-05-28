@@ -1,0 +1,22 @@
+<B_Rubriques>
+<div class="nav-secondary">
+<h3><:rubriques:></h3>
+<ul id="nav-secondary">
+<BOUCLE_Rubriques(RUBRIQUES){id_parent}{par titre}>
+	<li class="active">
+		<a href="[(#URL_RUBRIQUE)]"[(#EXPOSER|class="active",)]>[(#TITRE|supprimer_numero)][(#LOGO_RUBRIQUE||image_reduire{20})]</a>
+		<B_bajoRUBRIQUE>
+			<ul>
+				<BOUCLE_bajoRUBRIQUE(RUBRIQUES){id_parent}{par titre}{doublons}>
+					<li>
+						<a href="[(#URL_RUBRIQUE)]">[(#TITRE)]</a>
+					</li>
+				</BOUCLE_bajoRUBRIQUE>
+				<BOUCLE_SsRubriques(BOUCLE_bajoRUBRIQUE)></BOUCLE_SsRubriques>
+			</ul>
+		</B_bajoRUBRIQUE>
+	</li>
+</BOUCLE_Rubriques>
+</ul>
+</div>
+</B_Rubriques>

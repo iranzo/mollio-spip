@@ -1,0 +1,22 @@
+.en2col1{
+	position: relative;
+        float: left;
+        width: 47.5%;
+}
+
+
+.en2col2{
+	position: relative;
+        float: right;
+        width: 47.5%;
+}
+
+
+.table{
+	text-align: center;
+}
+
+
+#foros {list-style: none;background: none}
+
+.spip_documents {margin: 5px 5px 5px 5px;padding: 5px 5px}

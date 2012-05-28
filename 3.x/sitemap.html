@@ -1,0 +1,64 @@
+<?php
+echo '<'."?xml version=\"1.0\" encoding=\"UTF-8\"?".'>';
+?>
+<urlset xmlns="http://www.google.com/schemas/sitemap/0.84" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google.com/schemas/sitemap/0.84/sitemap.xsd">
+
+<url>
+	<loc>#URL_SITE_SPIP/</loc>
+	<priority>1.0</priority>
+	<changefreq>weekly</changefreq>
+</url>
+<url>
+        <loc>#URL_PAGE{plan}</loc>
+        <changefreq>weekly</changefreq>
+</url>
+<BOUCLE_sectores(RUBRIQUES) {id_parent=0}>
+	<url>
+		<loc>[(#URL_RUBRIQUE|url_absolue)]</loc>
+		[<lastmod>(#DATE|affdate{'Y-m-d'})</lastmod>]
+	</url>
+	<B_rubriques>
+	<BOUCLE_rubriques(RUBRIQUES){id_parent}>
+		<url>
+			[<loc>(#URL_RUBRIQUE|url_absolue)</loc>]
+			[<lastmod>(#DATE|affdate{'Y-m-d'})</lastmod>]
+		 </url>
+ 		 <B_articles_rubriques>
+		 <BOUCLE_articles_rubriques(ARTICLES){id_rubrique}{type_mot!=Design}>
+			 <url>
+				<loc>[(#URL_ARTICLE|url_absolue)]</loc>
+				[<lastmod>(#DATE_MODIF|affdate{'Y-m-d'})[T(#DATE_MODIF|heures)][:(#DATE_MODIF|minutes)][:(#DATE_MODIF|secondes)+01:00]</lastmod>]
+				<priority>[(#POPULARITE|porcentaje)]</priority>
+			</url>
+		</BOUCLE_articles_rubriques>
+		</B_articles_rubriques>
+		<BOUCLE_recursive(boucle_rubriques)></BOUCLE_recursive>
+	</BOUCLE_rubriques>
+	</B_rubriques>
+	<B_breves>
+	<BOUCLE_breves(BREVES) {id_rubrique}{type_mot!=Design}>
+		<url>
+			[<loc>(#URL_BREVE|url_absolue)</loc>]
+			[<lastmod>(#DATE|affdate{'Y-m-d'})</lastmod>]
+		</url>
+	</BOUCLE_breves>
+	</B_breves>
+	<B_articles>
+	<BOUCLE_articles(ARTICLES) {id_rubrique}{type_mot!=Design}>
+		<url>
+			[<loc>(#URL_ARTICLE|url_absolue)</loc>]
+			[<lastmod>(#DATE_MODIF|affdate{'Y-m-d'})[T(#DATE_MODIF|heures)][:(#DATE_MODIF|minutes)][:(#DATE_MODIF|secondes)+01:00]</lastmod>]
+			[<priority>(#POPULARITE|porcentaje)</priority>]
+		</url>
+	</BOUCLE_articles>
+	</B_articles>
+</BOUCLE_sectores>
+<BOUCLE_mot(MOTS){type!=Design}{tout}>
+	[<url><loc>(#URL_MOT|url_absolue)</loc></url>]
+</BOUCLE_mot>
+<BOUCLE_autart(ARTICLES){type_mot!=Design}>
+	<BOUCLE_auteur(AUTEURS){id_article}{doublons}>
+		[<url><loc>(#URL_AUTEUR|url_absolue)</loc></url>]
+	</BOUCLE_auteur>
+</BOUCLE_autart>
+</urlset>

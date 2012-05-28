@@ -1,0 +1,20 @@
+<BOUCLE_datosart(ARTICLES){id_article}{0,1}>
+	<h4>
+	<span class="date">[(#DATE|nom_jour)] [(#DATE|affdate)]</span>
+    	<BOUCLE_art3(DOCUMENTS){id_article}{0,1}><a href="[(#URL_PAGE{album}|parametre_url{'id_document',#ID_DOCUMENT})]"></BOUCLE_art3>#TITRE</a>
+	</h4>
+	<span class="thumbnail">
+		<BOUCLE_art2(DOCUMENTS){id_article}{0,1}>
+			<a href="[(#URL_PAGE{album}|parametre_url{'id_document',#ID_DOCUMENT})]">
+				[(#LOGO_DOCUMENT|right||image_reduire{100})]
+			</a>
+		</BOUCLE_art2>
+	</span>
+
+	[(#INTRODUCTION|textebrut|justifier)]
+		[<:enviadopor:> (#LESAUTEURS)|]
+	<BOUCLE_nb_forums(FORUMS){id_article}{plat}></BOUCLE_nb_forums><a href="#URL_ARTICLE#forum">#TOTAL_BOUCLE <:comentarios:></a><//B_nb_forums>
+        | <:visitas:>: #VISITES | <:popularite:> #POPULARITE% |  <BOUCLE_keywords(MOTS){id_article}{", "}><a href="#URL_MOT">[(#TITRE|supprimer_tags)]</a></BOUCLE_keywords> | </B_keywords><BOUCLE_art4(DOCUMENTS){id_article}{0,1}>
+        <a class="morelink" href="[(#URL_PAGE{album}|parametre_url{'id_document',#ID_DOCUMENT})]"></BOUCLE_art4><:leermas:></a>
+
+</BOUCLE_datosart>

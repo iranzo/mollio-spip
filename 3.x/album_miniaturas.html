@@ -1,0 +1,91 @@
+#SET{documento,#ID_DOCUMENT}
+<BOUCLE_photobig(DOCUMENTS){id_document}>
+	[<h3 align="center">(#TITRE)</h3>]
+	<span class="table">
+		<a href="[(#URL_DOCUMENT)]">
+			<table border="0" align="center" bgcolor="Black">
+				<tbody align="center">
+					<tr>
+						<td></td>
+						<td bgcolor="White"><img src="#DOSSIER_SQUELETTE/images/topneg.png" width="100%" alt='film'/></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>[(#URL_DOCUMENT||inserer_attribut{'alt',#TITRE}|image_reduire{400})]</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td bgcolor="White"><img src="#DOSSIER_SQUELETTE/images/botneg.png" width="100%" alt='film'/></td>
+						<td></td>
+					</tr>	    
+				</tbody>
+			</table>	
+		</a>
+	</span>
+	<br clear="all"/>
+	<!-- TITRE DE LA PHOTO -->
+	<!-- DESCRIPTIF DE LA PHOTO -->
+	[(#DESCRIPTIF)]
+	<!-- colonne de séparaton  -->
+	<table class="table"  border="0" align="center" cellpadding="0" cellspacing="0" summary="">
+		<!-- première tiers des miniatures -->
+		<td valign=top>
+			<table border="0" cellpadding="3" cellspacing="0" summary="">
+				<BOUCLE_art1(ARTICLES){id_document}>
+					<BOUCLE_minis1(DOCUMENTS){id_article}{1/3}>
+						<tr>
+						        <?php
+								if (#GET{documento} == #ID_DOCUMENT){
+									echo "<td bgcolor=\"#993333\">";
+								} else {
+									echo "<td>";
+								}
+							?>
+							<a href="[(#URL_PAGE{album}|parametre_url{'id_document',#ID_DOCUMENT})]">[(#LOGO_DOCUMENT)]</a></td>
+						</tr>
+					</BOUCLE_minis1>
+				</BOUCLE_art1>
+			</table>
+		</td>
+		<!-- deuxième tiers des  miniatures -->
+		<td valign="top">
+			<table border="0" cellpadding="3" cellspacing="0" summary="">
+				<BOUCLE_art2(ARTICLES){id_document}>
+					<BOUCLE_minis2(DOCUMENTS){id_article}{2/3}>
+						<tr>
+							<?php
+								if (#GET{documento} == #ID_DOCUMENT){
+									echo "<td bgcolor=\"#993333\">";
+								} else {
+									echo "<td>";
+								}
+							?>
+							<a href="[(#URL_PAGE{album}|parametre_url{'id_document',#ID_DOCUMENT})]">#LOGO_DOCUMENT</a></td>
+						</tr>
+					</BOUCLE_minis2>
+				</BOUCLE_art2>
+				</table>
+		</td>     
+		<!-- troisième tiers des  miniatures -->
+		<td valign="top">
+			<table border="0" cellpadding="3" cellspacing="0" summary="">
+				<BOUCLE_art3(ARTICLES){id_document}>
+					<BOUCLE_minis3(DOCUMENTS){id_article}{3/3}>
+						<tr>
+							<?php
+								if (#GET{documento} == #ID_DOCUMENT){
+									echo "<td bgcolor=\"#993333\">";
+								} else {
+									echo "<td>";
+								}
+							?>
+							<a href="[(#URL_PAGE{album}|parametre_url{'id_document',#ID_DOCUMENT})]">#LOGO_DOCUMENT</a></td>
+						</tr>
+					</BOUCLE_minis3>
+				</BOUCLE_art3>
+			</table>
+		</td>
+	</table>
+</BOUCLE_photobig>

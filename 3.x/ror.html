@@ -1,0 +1,97 @@
+<?php
+echo '<'."?xml version=\"1.0\"?".'>';
+?>
+
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.rorweb.com/0.1/">
+
+<Resource rdf:about="main">
+	<type>Main</type>
+	<title>#NOM_SITE_SPIP</title>
+	<url>#URL_SITE_SPIP/</url>
+	<BOUCLE_logo(ARTICLES){titre_mot="Frase"}{par date}{inverse}{0,1}>
+		[<image>(#LOGO_ARTICLE||extraire_attribut{src}|url_absolue)</image>]
+	</BOUCLE_logo>
+	<BOUCLE_texto(ARTICLES){titre_mot="Frase"}{par date}{inverse}{0,1}>
+                [<desc>(#TITRE)</desc>]
+	</BOUCLE_texto>
+</Resource>
+
+<BOUCLE_sectores(RUBRIQUES) {id_parent=0}>
+	<Resource>
+		[<url>(#URL_RUBRIQUE|url_absolue)</url>]
+		<updated>[(#DATE|affdate{'Y-m-d'})]</updated>
+	</Resource>
+	<B_rubriques>
+	<BOUCLE_rubriques(RUBRIQUES) {id_parent}>
+		<Resource rdf:about="#URL_RUBRIQUE">
+			[<url>(#URL_RUBRIQUE|url_absolue)</url>]
+			<updated>[(#DATE|affdate{'Y-m-d'})]</updated>
+			[<desc>(#DESCRIPTIF|textebrut)</desc>]
+			<BOUCLE_chemindenav(HIERARCHIE){id_rubrique}{1,1}>
+				[<resourceOf rdf:resource="(#URL_RUBRIQUE)">]
+	                </BOUCLE_chemindenav>
+		</Resource>
+ 		<B_articles_rubriques>
+		<BOUCLE_articles_rubriques(ARTICLES){id_rubrique}{type_mot!=Design}>
+			<Resource rdf:about="#URL_ARTICLE">
+				[<url>(#URL_ARTICLE|url_absolue)</url>]
+				<resourceOf rdf:resource="#URL_RUBRIQUE">				
+				[<updated>(#DATE_MODIF|affdate{'Y-m-d'})</updated>]
+				[<desc>(#DESCRIPTIF|textebrut)</desc>]
+				[<creator>(#LESAUTEURS|textebrut)</creator>]
+				[<language>(#LANG)</language>]
+				[<published>(#DATE|affdate{'Y-m-d'})</published>]
+				<B_keywords><keywords><BOUCLE_keywords(MOTS){id_article}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords></keywords></B_keywords>
+			</Resource>
+		</BOUCLE_articles_rubriques>
+		</B_articles_rubriques>
+		<BOUCLE_recursive(boucle_rubriques)></BOUCLE_recursive>
+	</BOUCLE_rubriques>
+	</B_rubriques>
+	<B_breves>
+	<BOUCLE_breves(BREVES){id_rubrique}{type_mot!=Design}>
+		<Resource rdf:about="#URL_BREVE">
+			[<url>(#URL_BREVE|url_absolue)</url>]
+			<resourceOf rdf:resource="Main">			
+			[<updated>(#DATE|affdate{'Y-m-d'})</updated>]
+			[<language>(#LANG)</language>]
+			[<desc>(#DESCRIPTIF|textebrut)</desc>]
+			<B_keywordsbreve><keywords><BOUCLE_keywordsbreve(MOTS){id_breve}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywordsbreve></keywords></B_keywordsbreve>
+		</Resource>
+	</BOUCLE_breves>
+	</B_breves>
+	<B_articles>
+	<BOUCLE_articles(ARTICLES) {id_rubrique}{type_mot!=Design}>
+		<Resource rdf:about="#URL_ARTICLE">
+			[<url>(#URL_ARTICLE|url_absolue)</url>]
+			<resourceOf rdf:resource="Main">				
+			[<updated>(#DATE_MODIF|affdate{'Y-m-d'})</updated>]
+			[<desc>(#DESCRIPTIF|textebrut)</desc>]
+			[<creator>(#LESAUTEURS|textebrut)</creator>]
+			[<language>(#LANG)</language>]
+			[<published>(#DATE|affdate{'Y-m-d'})</published>]
+			<B_keywords2><keywords><BOUCLE_keywords2(MOTS){id_article}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords2></keywords></B_keywords2>
+		</Resource>
+	</BOUCLE_articles>
+	</B_articles>
+</BOUCLE_sectores>
+<BOUCLE_mot(MOTS){type!=Design}{tout}>
+	<Resource rdf:about="#TITRE">
+		[<url>(#URL_MOT|url_absolue)</url>]
+		<resourceOf rdf:resource="Main">
+	</Resource>
+</BOUCLE_mot>
+<BOUCLE_autart(ARTICLES){type_mot!=Design}{type_mot!=Design}>
+	<BOUCLE_auteur(AUTEURS){id_article}{doublons}>
+		<Resource rdf:about="#NOM">
+			[<url>(#URL_AUTEUR|url_absolue)</url>]
+			<resourceOf rdf:resource="Main">
+			[<desc>(#DESCRIPTIF|textebrut)</desc>]
+			[<creator>(#NOM)</creator>]
+			[<language>(#LANG)</language>]
+			[<published>(#DATE|affdate{'Y-m-d'})</published>]
+			
+		</Resource>
+	</BOUCLE_auteur>
+</BOUCLE_autart>
+</rdf:RDF>

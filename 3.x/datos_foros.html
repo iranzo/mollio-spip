@@ -1,0 +1,27 @@
+<BOUCLE_datosforo(FORUMS){id_forum}>
+   <h2 class="date-header">
+            [(#DATE|nom_jour)] [(#DATE|affdate)]
+            [(#LOGO_ARTICLE_RUBRIQUE|right|#URL_ARTICLE|image_reduire{64})]
+  </h2>
+
+  <!-- Begin .post -->
+
+  <div class="post">
+    <h3 class="post-title">
+		<a href=#URL_SITE>#TITRE</a>
+    </h3>
+
+    <div class="post-body">
+	[(#INTRODUCTION|textebrut)]
+    </div>
+    <p class="post-footer">[Enlace del foro: <a href="#URL_SITE">(#NOM_SITE)</a>]
+    </p>
+    <p class="post-footer">Enviado por <a href="#EMAIL">#NOM</a> (IP: #IP)
+    </p>
+    [<a href="(#PARAMETRES_FORUM|url_reponse_forum)">Contestar a este mensaje</a>]
+
+  <!-- End .post -->
+
+</div>  
+  
+</BOUCLE_datosforo>

@@ -1,0 +1,23 @@
+<BOUCLE_datossind(SITES){id_syndic}>
+
+  <h2 class="date-header">
+            [(#LOGO_SITE|right|#URL_SITE|image_reduire{64})]
+  </h2>
+  <!-- Begin .post -->
+
+  <div class="post">
+    <h3 class="post-title">
+		<a href=#URL_SITE>#NOM_SITE</a>
+    </h3>
+
+    <div class="post-body">
+	[(#DESCRIPTIF|textebrut)]
+    </div>
+    <p class="post-footer">[<:enlace:>: <a href="#URL_SITE">(#NOM_SITE)</a>]
+      </p>
+
+  <!-- End .post -->
+
+</div>
+  
+</BOUCLE_datossind>

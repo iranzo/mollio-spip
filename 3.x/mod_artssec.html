@@ -1,0 +1,14 @@
+<B_artsec>
+<BOUCLE_artsec(ARTICLES){id_article}>
+	<B_ar>
+		<div class="featurebox">
+		<h3><:meme_rubrique:></h3>
+		<ul>
+	 		<BOUCLE_ar(ARTICLES){id_rubrique}{type_mot!=Design}{par hasard}{0,5}{exclus}>
+				[<li><a href="#URL_ARTICLE">[(#LOGO_ARTICLE||image_reduire{20})](#TITRE)</a></li>]
+			</BOUCLE_ar>
+		</ul>
+		</div>
+	</B_ar>
+</BOUCLE_artsec>
+</B_artsec>

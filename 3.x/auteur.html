@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<BOUCLE_auteur(AUTEURS){id_auteur}>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
+<!--
+Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
+Community: Mollio http://www.mollio.org $
+License: Released Under the "Common Public License 1.0", 
+http://www.opensource.org/licenses/cpl.php
+License: Released Under the "Creative Commons License", 
+http://creativecommons.org/licenses/by/2.5/
+License: Released Under the "GNU Creative Commons License", 
+http://creativecommons.org/licenses/GPL/2.0/
+Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
+-->
+<head>
+	[(#INCLURE{fond=css})]
+	[(#INCLURE{fond=header})]
+	<title>[(#NOM)] - #NOM_SITE_SPIP</title>
+	<meta name="Keywords" content="<BOUCLE_articulosclav(ARTICLES){type_mot!=Design}{id_auteur}{","}><BOUCLE_keywords(MOTS){id_article}{doublons}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords></BOUCLE_articulosclav>"/>
+	<link rel="alternate" type="application/rss+xml" title="#NOM_SITE_SPIP 	(#NOM) RSS" 	href="[(#URL_PAGE{backend-aut}|parametre_url{'id_auteur',#ID_AUTEUR})]"/>
+</head>
+<body id="type-c">
+<div id="wrap">
+	[(#INCLURE{fond=cabecera}{id=0}{lang})]
+	<div id="content-wrap">
+		<div id="utility">
+			[(#INCLURE{fond=auteur_left_mods}{id_auteur}{lang})]
+		</div>
+		<div id="content">
+			<div id="breadcrumb">
+				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique=0}{lang})]
+			</div>
+					#DEBUT_SURLIGNE
+					<h1>[(#LOGO_AUTEUR|right||image_reduire{150})][(#NOM)]</h1>
+		               		[(#BIO)]
+					[<div class="featurebox">(#NOTES)</div>]		               		
+		       			[<hr/><p>#NOM_SITE : <a href="(#URL_SITE)">#URL_SITE</a></p>]
+					<B_articles_liste>
+						<h1>
+							<:articles_auteur:>&nbsp;<BOUCLE_numarti(ARTICLES){id_auteur}{type_mot!="Design"}></BOUCLE_numarti>(#TOTAL_BOUCLE)<//B_numarti>
+						</h1>
+						<BOUCLE_articles_liste(ARTICLES){type_mot!="Design"}{id_auteur}{par date}{inverse}{pagination}{"<hr/>"}>
+
+							[(#INCLURE{fond=datos_articulo}{id_article})]
+						</BOUCLE_articles_liste>
+					<hr/>
+					<div class="pagination">
+						<p>
+							[(#PAGINATION{page})]
+							<h4>
+								<:leermas:>
+							</h4>
+						</p>
+					</div
+				        #FIN_SURLIGNE
+				        
+				        </B_articles_liste>
+			<!--
+			<div class="pagination">
+				<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
+				<h4>Page 1 of 5</h4>
+			</div>
+			-->
+			<hr/>
+			[(#INCLURE{fond=pie}{lang})]
+		</div>
+		<div id="sidebar">
+			[(#INCLURE{fond=auteur_right_mods}{id_auteur}{lang})]
+		</div>
+	</div>
+</div>
+</body>
+</html>
+</BOUCLE_auteur>

@@ -1,0 +1,9 @@
+<BOUCLE_articulo(ARTICLES){id_article}>
+<div class="featurebox">
+<h3><:formatosalida:></h3>
+<p align="center">
+	<a href="[(#URL_PAGE{imprimir}|parametre_url{'id_article',#ID_ARTICLE})]"><img width="32" height="32" src="#DOSSIER_SQUELETTE/images/imprimir.png" border="0" alt="<:ver_imprimer:>"/></a>
+	#ARTICLE_PDF
+</p>
+</div>
+</BOUCLE_articulo>

@@ -1,0 +1,52 @@
+<div class="featurebox">
+<h3>
+	<:mots_clefs:>
+</h3>
+
+	<?php $total=0; ?>
+	<?php $maxheigh=200; ?>
+	<?php $numero=0; ?>
+	<?php $max=0; ?>	
+	<BOUCLE_prearticulos(MOTS){type!=Design}{type!=Licencia}{par titre}>
+		<BOUCLE_prepalabras(ARTICLES){id_mot}></BOUCLE_prepalabras>
+			<?php $total=$total[+(#TOTAL_BOUCLE)]; ?>
+			<?php $numero=$numero+1; ?>
+			<?php if(#TOTAL_BOUCLE>$max){ $max=#TOTAL_BOUCLE;} ?>
+		<//B_prepalabras>
+	</BOUCLE_prearticulos>
+	<?php $media=$total/$numero; ?>
+
+	
+	<?php $desv=0; ?>
+	<?php $parcial=0; ?>
+	<?php $maxmin=0; ?>
+	<BOUCLE_statarticulos(MOTS){type!=Design}{type!=Licencia}{par titre}>
+		<BOUCLE_statpalabras(ARTICLES){id_mot}></BOUCLE_statpalabras>
+			<?php if(#TOTAL_BOUCLE>$maxmin & #TOTAL_BOUCLE<$max)
+				{
+					$maxmin=#TOTAL_BOUCLE;
+				}
+			?>
+			<?php $total=$total+#TOTAL_BOUCLE; ?>
+			<?php $parcial=$parcial+(#TOTAL_BOUCLE-$media)*(#TOTAL_BOUCLE-$media); ?>
+		<//B_statpalabras>
+	</BOUCLE_statarticulos>
+	<?php $desv=sqrt($parcial/$numero); ?>
+	<?php $palabros=0; ?>
+
+		<BOUCLE_articulos(MOTS){type!=Design}{type!=Licencia}{par titre}>
+		<BOUCLE_palabras(ARTICLES){id_mot}></BOUCLE_palabras>
+			<?php $tamanyo=#TOTAL_BOUCLE;?>
+			<?php if($tamanyo>$maxmin){ $tamanyo=$maxmin;}?>
+			<?php  $pctj=round($maxheigh*$tamanyo/$maxmin,2); ?>
+			<a href="#URL_MOT" style="font-size:<?php echo $pctj;?>%">			
+				<?php 
+					if ($tamanyo>round(0.75*$media,2))
+					{
+						echo "#TITRE";
+					}
+				?>
+			</a>
+		<//B_palabras>
+	</BOUCLE_articulos>
+</div>

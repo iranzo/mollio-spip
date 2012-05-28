@@ -1,0 +1,18 @@
+<BOUCLE_articulo(ARTICLES){id_document}>
+<B_documents>
+<div class="featurebox">
+<h3><:siguiente:> - <:previo:></h3>
+
+<p align="center">
+<BOUCLE_documents(DOCUMENTS){id_article}{id_document}>
+	<BOUCLE_avant(DOCUMENTS){id_article}{id_document< #ID_DOCUMENT}{par id_document}{inverse}{0,1}>
+		<a href="[(#URL_PAGE{album}|parametre_url{'id_document',#ID_DOCUMENT})]" title="<:previo:>"><img name="<:previo:>" src="#DOSSIER_SQUELETTE/images/back.png" width="48" height="48" alt="<:previo:>" border="0"></a>
+	</BOUCLE_avant>
+	<BOUCLE_apres(DOCUMENTS){id_article}{id_document > #ID_DOCUMENT}{0,1}{doublons}>
+		<a href="[(#URL_PAGE{album}|parametre_url{'id_document',#ID_DOCUMENT})]" title="<:siguiente:>"><img name="<:siguiente:>" src="#DOSSIER_SQUELETTE/images/forward.png" width="48" height="48" border="0" alt="<:siguiente:>"></a>
+	</BOUCLE_apres>
+</BOUCLE_documents>
+</p>
+</div>
+</B_documents>
+</BOUCLE_articulo>

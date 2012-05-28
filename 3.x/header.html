@@ -1,0 +1,19 @@
+<meta http-equiv="Content-Type" content="text/html; charset=#CHARSET"/>
+<script type="text/javascript" src="#DOSSIER_SQUELETTE/js/common.js"></script>
+<meta name="robot" content="follow, index, all"/>
+<meta name="revisit-after" content="1 days"/>
+<link rel="start" title="<:accueil:>" href="#URL_SITE_SPIP/" alt="<:accueil_site:>"/>
+<link rel="index" title="<:carte:>" href="#URL_PAGE{plan}"/>
+<link rel="alternate" type="application/rss+xml" title="#NOM_SITE_SPIP RSS" href="#URL_PAGE{backend}"/>	
+<link rel="shortcut icon" type="images/x-icon" href="#DOSSIER_SQUELETTE/images/favicon.ico"/>
+<link id="rorlink" rel="meta" type="application/rdf+xml" title="ROR" href="#URL_PAGE{ror}"/>
+<meta name="robots" content="index,follow"/>
+<link rel="microsummary" type="application/x.microsummary+xml" href="#URL_PAGE{microsum}" />
+
+<BOUCLE_customhead_cfg(ARTICLES){titre_mot="_is_site"}{0,1}>
+	<BOUCLE_customhead_cfg_elem(ARTICLES){id_article}{titre_mot="_is_config"}{0,1}>
+		<BOUCLE_customhead_cfg_customheader(ARTICLES){id_article}{titre_mot="_has_customhead"}{0,1}>
+			[(#INCLURE{fond=custom_head})]
+		</BOUCLE_customhead_cfg_customheader>
+	</BOUCLE_customhead_cfg_elem>
+</BOUCLE_customhead_cfg>

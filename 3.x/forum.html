@@ -1,0 +1,62 @@
+<?php
+$GLOBALS['afficher_groupe'][]=0;
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
+<!--
+Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
+Community: Mollio http://www.mollio.org $
+License: Released Under the "Common Public License 1.0", 
+http://www.opensource.org/licenses/cpl.php
+License: Released Under the "Creative Commons License", 
+http://creativecommons.org/licenses/by/2.5/
+License: Released Under the "GNU Creative Commons License", 
+http://creativecommons.org/licenses/GPL/2.0/
+Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
+-->
+<head>
+	[(#INCLURE{fond=css})]
+	[(#INCLURE{fond=header})]
+	<title><:messages_forum:> - #NOM_SITE_SPIP</title>
+	<meta name="Keywords" content="<BOUCLE_articulosclav(ARTICLES){type_mot!=Design}{","}><BOUCLE_keywords(MOTS){id_article}{doublons}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords></BOUCLE_articulosclav>"/>
+</head>    
+<body id="type-c">
+<div id="wrap">
+	[(#INCLURE{fond=cabecera}{id=0}{lang})]
+	<div id="content-wrap">
+		<div id="utility">
+			[(#INCLURE{fond=forum_left_mods}{lang})]
+		</div>
+		<div id="content">
+			<div id="breadcrumb">
+				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique=0}{lang})]
+			</div>    
+			<h1><:poster_message:></h1>
+		        <div class="inside2col">
+			        <p class="ie5bug">&nbsp;</p>
+			          <BOUCLE_article(ARTICLES){id_article}>
+				          <h2 class="2col"><:en_reponse:> #TITRE</h2>
+			         </BOUCLE_article>
+			         <BOUCLE_breve(BREVES) {id_breve}>
+				          <h2 class="2col"><:en_reponse:> #TITRE</h2>
+			          </BOUCLE_breve>  
+				#FORMULAIRE_FORUM
+			</div>
+			<!--
+			<div class="pagination">
+				<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
+				<h4>Page 1 of 5</h4>
+			</div>
+			-->
+			<hr/>
+			[(#INCLURE{fond=pie}{lang})]
+		</div>
+		<div id="sidebar">
+			[(#INCLURE{fond=forum_right_mods}{lang})]
+		</div>
+	</div>
+	
+</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+#SET{articulo,#ID_ARTICLE}
+#SET{rubrique,#ID_RUBRIQUE}
+#SET{lang,#LANG}
+#SET{autor,#ID_AUTEUR}
+#SET{breve,#ID_BREVE}
+<B_plan_cfg_left>
+<BOUCLE_plan_cfg_left(ARTICLES){titre_mot="_is_plan"}{0,1}>
+	<BOUCLE_plan_cfg_left_elem(ARTICLES){id_article}{titre_mot="_is_config"}{0,1}>
+		<BOUCLE_plan_cfg_left_menu(ARTICLES){id_article}{titre_mot="_has_menu"}{0,1}>
+			[(#INCLURE{fond=menu}{lang=#GET{lang}})]
+		</BOUCLE_plan_cfg_left_menu>
+		<BOUCLE_plan_cfg_left_popul(ARTICLES){id_article}{titre_mot="_has_popul"}{0,1}>
+			[(#INCLURE{fond=mod_popul}{lang=#GET{lang}})]
+		</BOUCLE_plan_cfg_left_popul>
+	</BOUCLE_plan_cfg_left_elem>
+</BOUCLE_plan_cfg_left>
+	[(#INCLURE{fond=menu}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_popul}{lang=#GET{lang}})]
+<//B_plan_cfg_left>

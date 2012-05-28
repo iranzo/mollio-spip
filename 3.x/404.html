@@ -1,0 +1,11 @@
+<?php
+	$url3=str_replace("/","","#EVAL{$_SERVER['REQUEST_URI']}");
+	$url2=str_replace(".html","",$url3);
+	$url=str_replace("-"," ",$url2);
+	$cadena=strlen($url);
+	$resto=strlen(stristr($url,"?"));
+	$search=urlencode(substr($url,0,$cadena-$resto));
+	header('HTTP/1.1 301 Moved Permanently');
+	header('Location:'."/spip.php?page=busca&recherche=$search");
+	exit;
+?>

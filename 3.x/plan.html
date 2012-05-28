@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
+<!--
+Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
+Community: Mollio http://www.mollio.org $
+License: Released Under the "Common Public License 1.0", 
+http://www.opensource.org/licenses/cpl.php
+License: Released Under the "Creative Commons License", 
+http://creativecommons.org/licenses/by/2.5/
+License: Released Under the "GNU Creative Commons License", 
+http://creativecommons.org/licenses/GPL/2.0/
+Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
+-->
+<head>
+	[(#INCLURE{fond=css})]
+	[(#INCLURE{fond=header})]
+	<title><:plan_site:> - #NOM_SITE_SPIP</title>
+	<meta name="Keywords" content="<BOUCLE_articulosclav(ARTICLES){type_mot!=Design}{","}><BOUCLE_keywords(MOTS){id_article}{doublons}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords></BOUCLE_articulosclav>"/>
+	<meta name="Description" content="<:plan_site:>"/>
+</head>
+<body id="type-c">
+<div id="wrap">
+	[(#INCLURE{fond=cabecera}{id=2}{lang})]
+	<div id="content-wrap">
+		<div id="utility">
+			[(#INCLURE{fond=plan_left_mods}{lang})]
+		</div>
+		<div id="content">
+			<div id="breadcrumb">
+				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique=0}{lang})]
+			</div>
+				<h1><:plan_site:></h1>
+				
+				<div id="foros">
+				<BOUCLE_RubExclues(RUBRIQUES){titre_mot=Design}{doublons}>
+				</BOUCLE_RubExclues>
+				<B_Autres>
+				<ul id="foros">
+				<BOUCLE_Autres(RUBRIQUES){id_parent=0}{par titre}{doublons}>
+					<li id="foros">
+						<strong>
+							<a href="#URL_RUBRIQUE">
+								[(#LOGO_RUBRIQUE|right||image_reduire{32})][(#TITRE|supprimer_numero)]
+							</a>
+						</strong>
+					<B_articles_recents_Racine>
+						<ul id="foros">
+							<BOUCLE_articles_recents_Racine(ARTICLES){type_mot!="Design"}{tout}{id_rubrique}{par date}{inverse}>
+								<li id="foros">
+									<a href="#URL_ARTICLE">
+										[(#LOGO_ARTICLE|left||image_reduire{16})][(#TITRE|supprimer_numero)]
+									</a>
+								</li>
+							</BOUCLE_articles_recents_Racine>
+						</ul>
+					</B_articles_recents_Racine>
+					<B_Autres_Details>
+						<ul id="foros">
+						<BOUCLE_Autres_Details(RUBRIQUES){id_parent}{par num titre}{doublons}>
+							<li id="foros">
+								<a href="#URL_RUBRIQUE">
+									[(#LOGO_RUBRIQUE|right||image_reduire{32})][(#TITRE|supprimer_numero)]
+								</a>
+							<BOUCLE_Recurssion(BOUCLE_Autres_Details)>
+							</BOUCLE_Recurssion>
+							<B_articles_recents_Autres>
+								<ul id="foros">
+								<BOUCLE_articles_recents_Autres(ARTICLES) {tout}{id_rubrique}{par date}{inverse}>
+									<li id="foros">
+										<a href="#URL_ARTICLE">
+											[(#LOGO_ARTICLE|left||image_reduire{16})][(#TITRE|supprimer_numero)]
+										</a>
+									</li>
+								</BOUCLE_articles_recents_Autres>
+								</ul>
+							</B_articles_recents_Autres>
+							</li>
+						</BOUCLE_Autres_Details>
+						</ul>
+					</B_Autres_Details>
+					</li>
+				</BOUCLE_Autres>
+				</ul>
+				</B_Autres>
+				</div>
+			<hr/>
+			[(#INCLURE{fond=pie}{lang})]
+		</div>
+		<div id="sidebar">
+			[(#INCLURE{fond=plan_right_mods}{lang})]
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<B_rub>
+<div class="featurebox">
+	<BOUCLE_rub(RUBRIQUES){titre_mot=#ENV{titre_mot}}{0,1}>
+		<h3>
+			#TITRE
+		</h3>
+	<B_modrub>	
+	<ul>
+		<BOUCLE_modrub(ARTICLES){id_secteur=#ID_RUBRIQUE}{type_mot!="Design"}{par date}{inverse}{0,5}>
+			[<li>[(#LOGO_ARTICLE_RUBRIQUE|#URL_ARTICLE|image_reduire{20})]<a href="#URL_ARTICLE">(#TITRE)</a></li>]
+		</BOUCLE_modrub>         		
+	</ul>
+	</B_modrub>
+	</BOUCLE_rub>
+</div>
+</B_rub>

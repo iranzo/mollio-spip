@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
+<!--
+Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
+Community: Mollio http://www.mollio.org $
+License: Released Under the "Common Public License 1.0", 
+http://www.opensource.org/licenses/cpl.php
+License: Released Under the "Creative Commons License", 
+http://creativecommons.org/licenses/by/2.5/
+License: Released Under the "GNU Creative Commons License", 
+http://creativecommons.org/licenses/GPL/2.0/
+Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
+-->
+<head>
+	[(#INCLURE{fond=css})]
+	[(#INCLURE{fond=header})]
+	<title><:correo:> - #NOM_SITE_SPIP</title>
+	<meta name="Description" content="<:serviciocorreo:>" />
+</head>
+
+<body id="type-c">
+<div id="wrap">
+	[(#INCLURE{fond=cabecera}{id=3}{lang})]
+	<div id="content-wrap">
+		<div id="utility">
+			[(#INCLURE{fond=correo_left_mods}{lang})]
+		</div>
+		<div id="content">
+			<div id="breadcrumb">
+				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique=0}{lang})]
+			</div>
+
+					<h1><:serviciocorreo:> #NOM_SITE_SPIP</h1>
+
+<form action="https://Alufis35.uv.es/squirrel/src/redirect.php" name="theform" method="post">
+	<:usuario:>:
+	<input type="hidden" name="lang" value="spa"/>
+	<input type="text" size="10" name="login_username" value=""/><br/>
+
+	<:clave:>:
+	<input type="password" size="10" name="secretkey"/>
+	<p>
+		<input type="hidden" name="cmd" value="login"/>
+		<input type="submit" name="Login_INBOX" value="<:entrar:>"/>
+		<input type="hidden" size="10" name="imapserver" value="Alufis35.uv.es"/><br/> 
+	</p>
+  
+  </form>
+			<!--
+			<div class="pagination">
+				<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
+				<h4>Page 1 of 5</h4>
+			</div>
+			-->
+			
+			<hr/>
+			
+			[(#INCLURE{fond=pie}{lang})]
+			
+		</div>
+		
+		<div id="sidebar">
+			[(#INCLURE{fond=correo_right_mods}{lang})]
+		</div>
+	</div>
+	
+</div>
+</body>
+</html>

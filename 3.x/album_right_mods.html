@@ -1,0 +1,27 @@
+#SET{articulo,#ID_ARTICLE}
+#SET{rubrique,#ID_RUBRIQUE}
+#SET{lang,#LANG}
+#SET{autor,#ID_AUTEUR}
+#SET{breve,#ID_BREVE}
+<B_album_cfg_right>
+<BOUCLE_album_cfg_right(ARTICLES){titre_mot="_is_album"}{0,1}>
+	<BOUCLE_album_cfg_right_elem(ARTICLES){id_article}{titre_mot="_is_config"}{0,1}>
+		<BOUCLE_album_cfg_right_nextprev(ARTICLES){id_article}{titre_mot="_has_nextprev"}{0,1}>
+			[(#INCLURE{fond=mod_nextprev}{id_document}{id_article=#GET{articulo}}{lang=#GET{lang}})]		
+		</BOUCLE_album_cfg_right_nextprev>
+		<BOUCLE_album_cfg_right_exif(ARTICLES){id_article}{titre_mot="_has_exif"}{0,1}>
+			[(#INCLURE{fond=mod_exif}{id_document}{lang=#GET{lang}})]		
+		</BOUCLE_album_cfg_right_exif>		
+		<BOUCLE_album_cfg_right_sameauth(ARTICLES){id_article}{titre_mot="_has_sameauth"}{0,1}>
+			[(#INCLURE{fond=mod_artsautalbum}{id_document}{lang=#GET{lang}})]		
+		</BOUCLE_album_cfg_right_sameauth>		
+		<BOUCLE_album_cfg_breves(ARTICLES){id_article}{titre_mot="_has_breves"}{0,1}>
+			[(#INCLURE{fond=mod_breves}{lang=#GET{lang}})]
+		</BOUCLE_album_cfg_breves>		
+	</BOUCLE_album_cfg_right_elem>
+</BOUCLE_album_cfg_right>
+	[(#INCLURE{fond=mod_nextprev}{id_document}{id_article=#GET{articulo}}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_exif}{id_document}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_artsautalbum}{id_document}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_breves}{lang=#GET{lang}})]
+<//B_album_cfg_right>

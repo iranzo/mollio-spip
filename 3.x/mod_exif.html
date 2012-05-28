@@ -1,0 +1,103 @@
+<BOUCLE_documentos(DOCUMENTS){id_document}>
+<?php
+
+/*
+Based on EXIF code from FOTOPHOLDER 1.9 from Jake Olefsky
+http://www.jakeo.com/software/fotopholder/index.php
+SPIP Adaptation by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/
+*/
+
+	function checkGDversion() {
+		$capabilities = get_extension_funcs("gd");
+		if(!$capabilities) return -1;
+		if(in_array ("imagegd2",$capabilities)) return 2;
+		return 1;
+	}
+	function checkExifversion() {
+		$capabilities = get_extension_funcs("exif");
+		if(!$capabilities) return 0;
+		if(in_array ("exif_read_data",$capabilities)) return 1;
+		return 0;
+	}
+	
+?>
+<?
+	if(checkExifversion()==1) {
+		$details = @exif_read_data("#URL_DOCUMENT");
+	}
+?>
+
+<?php if(!empty($details['Make']))
+{?>
+	<div class="featurebox">
+	<h3>Informaci&oacute;n EXIF</h3>
+	<p>
+<?
+}
+?>
+
+		<?php if(!empty($details['DateTime'])) { ?><span class="info_bold">Fecha: </span><span class="info"><?php echo $details['DateTime']?> <br/></span><?php } ?>
+		
+		<?php if(!empty($details['ExposureTime'])) { 
+			$fraction = split("/",$details['ExposureTime']);
+			if($fraction[0]/10 == 1) $exposureTime="1/".round($fraction[1]/10, 0)." seg"; //top is 10
+			else $exposureTime=$fraction[0]."/".$fraction[1]." seg"; //top is some other number
+			?>
+		<span class="info_bold"><:obtura:>: </span><span class="info"><?php echo $exposureTime?><br/></span><?php } ?>
+		
+		<?php if(!empty($details['FNumber'])) { 
+			$fraction = split("/",$details['FNumber']);
+			if($fraction[1]!=0) $fnumber="f ".($fraction[0]/$fraction[1]); 
+			else $fnumber="f ".$details['FNumber']; 
+			?>
+		<span class="info_bold"><:diafragma:>: </span><span class="info"><?php echo $fnumber?><br/></span><?php } ?>
+		
+		<?php if(!empty($details['FocalLength'])) { 
+			$fraction = split("/",$details['FocalLength']);
+			if($fraction[1]!=0) $fnumber=($fraction[0]/$fraction[1])."mm"; 
+			else $fnumber=$details['FocalLength']."mm"; 
+			?>
+		<span class="info_bold"><:focal:>: </span><span class="info"><?php echo $fnumber?><br/></span><?php } ?>
+		
+		
+		<?php if(!empty($details['Flash'])) { 
+			switch($details['Flash']) {
+			case 0: $flash = "Sin Flash"; break;
+			case 1: $flash = "Flash"; break;
+			case 5: $flash = "Flash, strobe return light not detected"; break;
+			case 7: $flash = "Flash, strobe return light detected"; break;
+			case 9: $flash = "Compulsory Flash"; break;
+			case 13: $flash = "Compulsory Flash, Return light not detected"; break;
+			case 15: $flash = "Compulsory Flash, Return light detected"; break;
+			case 16: $flash = "Sin Flash"; break;
+			case 24: $flash = "Sin Flash"; break;
+			case 25: $flash = "Flash, Auto"; break;
+			case 29: $flash = "Flash, Auto, Return light not detected"; break;
+			case 31: $flash = "Flash, Auto, Return light detected"; break;
+			case 32: $flash = "Sin Flash"; break;
+			case 65: $flash = "Reduc. ojos rojos"; break;
+			case 69: $flash = "Reduc. ojos rojos, Return light not detected"; break;
+			case 71: $flash = "Reduc. ojos rojos, Return light detected"; break;
+			case 73: $flash = "Reduc. ojos rojos, Compulsory Flash"; break;
+			case 77: $flash = "Reduc. ojos rojos, Compulsory Flash, Return light not detected"; break;
+			case 79: $flash = "Reduc. ojos rojos, Compulsory Flash, Return light detected"; break;
+			case 89: $flash = "Reduc. ojos rojos, Auto"; break;
+			case 93: $flash = "Reduc. ojos rojos, Auto, Return light not detected"; break;
+			case 95: $flash = "Reduc. ojos rojos, Auto, Return light detected"; break;
+			default : $flash = "Desconocido"; break;
+			}
+			?>
+		<span class="info_bold"><:flash:>: </span><span class="info"><?php echo $flash?><br/></span><?php } ?>
+		
+		<?php if(!empty($details['Make']) && !empty($details['Model'])) { ?><span class="info_bold">C&aacute;mara: </span><span class="info"><?php echo $details['Make']." ".$details['Model']?> <br/></span><?php } ?>
+
+		</p>
+
+<?php if(!empty($details['Make']))
+{?>
+	</div>
+<?
+}
+?>
+
+</BOUCLE_documentos>

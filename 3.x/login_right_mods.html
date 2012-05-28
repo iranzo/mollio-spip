@@ -1,0 +1,19 @@
+#SET{articulo,#ID_ARTICLE}
+#SET{rubrique,#ID_RUBRIQUE}
+#SET{lang,#LANG}
+#SET{autor,#ID_AUTEUR}
+#SET{breve,#ID_BREVE}
+<B_login_cfg>
+<BOUCLE_login_cfg(ARTICLES){titre_mot="_is_login"}{0,1}>
+	<BOUCLE_login_elemcfg(ARTICLES){id_article}{titre_mot="_is_config"}{0,1}>
+		<BOUCLE_login_cfg_agenda(ARTICLES){id_article}{titre_mot="_has_agenda"}{0,1}>
+			[(#INCLURE{fond=mod_agenda}{lang=#GET{lang}})]
+		</BOUCLE_login_cfg_agenda>
+		<BOUCLE_login_cfg_breves(ARTICLES){id_article}{titre_mot="_has_breves"}{0,1}>
+			[(#INCLURE{fond=mod_breves}{lang=#GET{lang}})]
+		</BOUCLE_login_cfg_breves>
+	</BOUCLE_login_elemcfg>
+</BOUCLE_login_cfg>
+	[(#INCLURE{fond=mod_agenda}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_breves}{lang=#GET{lang}})]
+<//B_login_cfg>

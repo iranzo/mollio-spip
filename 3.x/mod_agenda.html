@@ -1,0 +1,84 @@
+<div class="featurebox">
+<?php
+
+$months = array('', '<:enero:>', '<:febrero:>', '<:marzo:>', '<:abril:>','<:mayo:>', '<:junio:>', '<:julio:>','<:agosto:>','<:septiembre:>','<:octubre:>','<:noviembre:>', '<:diciembre:>');
+$days = array('<:D:>', '<:L:>', '<:M:>', '<:X:>', '<:J:>', '<:V:>', '<:S:>');
+
+$M = intval(date('m', time()));
+$Y = intval(date('Y', time()));
+$events = array();
+?>
+
+<h3>Agenda</h3>
+
+<!-- Agenda -->
+	<!-- construction liste evenements -->
+	<?php
+	<BOUCLE_evenements(ARTICLES){titre_mot=Agenda}>
+		$date = ereg_replace("^([0-9]{4})-([0-9]{2})-([0-9]{2}).*$", "\\1\\2\\3", '#DATE_REDAC');
+		if ($date > date("Ymd", mktime(0, 0, 0, $M, -7, $Y)) && $date < date("Ymd", mktime(0, 0, 0, $M + 1, 7, $Y))) {
+			if (!isset($events[$date])) { $events[$date] = array(); }
+			$events[$date][] = array('link' => '#URL_ARTICLE', 'title' => '[(#TITRE)]'); 
+		}
+	</BOUCLE_evenements>
+	?>
+	<!-- agenda miniature: en tete -->
+	<table cellpadding="0" cellspacing="0" align="center" border="1" class="agenda">
+	<tr> <th colspan="7" class="agendaNav">
+	<BOUCLE_agenda(RUBRIQUES){titre_mot=Agenda}{0,1}>
+		<?php
+			echo '<a href="[(#URL_PAGE{rubrique}|parametre_url{'id_rubrique',#ID_RUBRIQUE})]" title="Vista mensual">'.$months[intval($M)].'</a>&nbsp;';
+			echo $Y;
+		?>
+		#SET{rubrique_agenda,#ID_RUBRIQUE}
+	</BOUCLE_agenda>	
+	</th> </tr>
+	<!-- agenda miniature: affichage jours et evenements -->
+	<tr> 
+	<?php
+	for($i = 1; $i < 8; $i++) { echo '<th width="14%" class="agendaHead">'.$days[$i%7].'</th>'; }
+	$TempD = 1;
+	$Time = mktime(0, 0, 0, $M, 1, $Y);
+	if(date('w', $Time) != 1) {
+		echo '</tr><tr>';
+		$tmp = '';
+		while(date('w', $Time) != 1) {
+			$TempD--;
+			$Time = mktime(0, 0, 0, $M, $TempD, $Y);
+			$case = '<td width="14%" class="agendaNotThisMonth">';
+		        $date=date('Ymd', $Time);
+			if (isset($events[$date])) {
+				if (count($events[$date]) == 1) {
+				  $case .= '<u><a href='.$events[$date][0]['link'].' title="'.$events[$date][0]['title'].'">';
+				} else {
+				  $case .= '<u><a href="[(#URL_PAGE{rubrique}|parametre_url{'id_rubrique',#GET{rubrique_agenda}})]" title="'.count($events[$date]).' eventos">';
+				}
+				$case .= date('j', $Time).'</u></a>';
+			} else {$case .= date('j', $Time);}
+			$tmp = $case.'</td>'.$tmp;
+		}
+		echo $tmp;
+	}
+	$TempD = 1;
+	$Time = mktime(0, 0, 0, $M, 1, $Y);
+	while((date('m', $Time) == $M) || (date('w', $Time) != 1)) {
+		if(date('w', $Time) == 1) { echo '</tr><tr>'; }
+		echo '<td width="14%" align="center"';
+		echo ' class="agenda'.(date('m', $Time) != $M ? 'Not' : '').'This'.(date('Ymd', $Time) == date('Ymd') ? 'Day' : 'Month').'">';
+		$date=date('Ymd', $Time);
+		if (isset($events[$date])) {
+				if (count($events[$date]) == 1) {
+				  echo '<u><a href='.$events[$date][0]['link'].' title="'.$events[$date][0]['title'].'">';
+				} else {
+				  echo '<u><a href="[(#URL_PAGE{rubrique}|parametre_url{'id_rubrique',#GET{rubrique_agenda}})]" title="'.count($events[$date]).' eventos">';
+				}
+				echo date('j', $Time).'</u></a>';
+		} else {echo date('j', $Time);}
+		echo '</td>';
+		$TempD++;
+		$Time = mktime(0, 0, 0, $M, $TempD, $Y);
+	}
+	?>
+	</tr>
+	</table>
+</div>

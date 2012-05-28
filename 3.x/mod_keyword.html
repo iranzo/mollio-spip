@@ -1,0 +1,20 @@
+<BOUCLE_articul(ARTICLES){id_article}>
+	<B_grupillos>
+		<div class="featurebox">
+			<h3><:mots_clefs:></h3>
+			<ul>
+				<BOUCLE_grupillos(GROUPES_MOTS){par titre}>
+					<B_recupmot2>
+						[(#TYPE|!={'Licencia'}|?{<li>#TITRE,''})]
+						<ul>
+					<BOUCLE_recupmot2(MOTS){id_article}{id_groupe}>
+						[(#TYPE|!={'Licencia'}|?{[<li><a href="#URL_MOT" rel="tag">(#TITRE)</a></li>],''})]
+					</BOUCLE_recupmot2>
+						</ul>
+						[(#TYPE|!={'Licencia'}|?{</li>,''})]				
+					</B_recupmot2>
+				</BOUCLE_grupillos>
+			</ul>
+		</div>
+	</B_grupillos>
+</BOUCLE_articul>

@@ -1,0 +1,26 @@
+<B_som_cfg>
+<BOUCLE_som_cfg(ARTICLES){titre_mot="_is_sommaire"}{0,1}>
+	<BOUCLE_som_elemcfg(ARTICLES){id_article}{titre_mot="_is_config"}{0,1}>
+		<BOUCLE_som_cfg_agenda(ARTICLES){id_article}{titre_mot="_has_agenda"}{0,1}>
+			[(#INCLURE{fond=mod_agenda}{lang=#GET{lang}})]
+		</BOUCLE_som_cfg_agenda>
+		<BOUCLE_som_cfg_banners(ARTICLES){id_article}{titre_mot="_has_banners"}{0,1}>
+			[(#INCLURE{fond=mod_banners}{lang=#GET{lang}})]
+		</BOUCLE_som_cfg_banners>
+		<BOUCLE_som_cfg_breves(ARTICLES){id_article}{titre_mot="_has_breves"}{0,1}>
+			[(#INCLURE{fond=mod_breves}{lang=#GET{lang}})]
+		</BOUCLE_som_cfg_breves>
+		<BOUCLE_som_cfg_popul(ARTICLES){id_article}{titre_mot="_has_popul"}{0,1}>
+			[(#INCLURE{fond=mod_popul}{lang=#GET{lang}})]
+		</BOUCLE_som_cfg_popul>
+		<BOUCLE_som_cfg_nube(ARTICLES){id_article}{titre_mot="_has_nube"}{0,1}>
+			[(#INCLURE{fond=mod_nube}{lang=#GET{lang}})]
+		</BOUCLE_som_cfg_nube>
+	</BOUCLE_som_elemcfg>
+</BOUCLE_som_cfg>
+	[(#INCLURE{fond=mod_agenda}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_banners}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_breves}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_popul}{lang=#GET{lang}})]
+	[(#INCLURE{fond=mod_nube}{lang=#GET{lang}})]
+<//B_som_cfg>

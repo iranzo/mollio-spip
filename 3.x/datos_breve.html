@@ -1,0 +1,27 @@
+<BOUCLE_datosbrev(BREVES){id_breve}>
+
+  <!-- Begin .post -->
+
+  <div class="post">
+    <h2 class="post-title">
+		<a href=#URL_BREVE>#TITRE[(#LOGO_ARTICLE_RUBRIQUE|right|#URL_ARTICLE|image_reduire{64})]</a>
+    </h2>
+
+   <h5 class="date-header">
+            [(#DATE|nom_jour)] [(#DATE|affdate)]
+
+  </h5>    
+
+    <div class="post-body">
+	[(#INTRODUCTION|textebrut)]
+    </div>
+    <p class="post-footer">[<:enlace:>: <a href="#URL_SITE">(#NOM_SITE)</a><br>]
+        <a class="comment-link" href=#URL_BREVE><:leermas:></a>
+      </p>
+
+  <!-- End .post -->
+
+</div>
+
+  
+</BOUCLE_datosbrev>
