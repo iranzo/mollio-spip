@@ -14,34 +14,33 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 -->
 
 <head>
-	[(#INCLURE{fond=css})]
-	[(#INCLURE{fond=header})]
+	<INCLURE(css.php3)>
+	<INCLURE(header.php3)>
 	<title><:mots_clefs:> : [(#TITRE|supprimer_numero|textebrut)] - #NOM_SITE_SPIP </title>
 	[<meta name="Description" content="(#DESCRIPTIF)"/>]
-	<link rel="alternate" type="application/rss+xml" title="#NOM_SITE_SPIP (#TITRE) RSS" href="[(#URL_PAGE{backend-mot}|parametre_url{'id_mot',#ID_MOT})]"/>
-	<meta name="Keywords" content="#TITRE"/>
 </head>
 
 <body id="type-c">
 <div id="wrap">
-	[(#INCLURE{fond=cabecera}{id=1}{lang})]
+	<INCLURE(cabecera.php3){id=1}{lang}>
 	<div id="content-wrap">
 	
 		<div id="utility">
 
-			[(#INCLURE{fond=menu}{lang})]
-			[(#INCLURE{fond=mod_popul}{lang})]
+			<INCLURE(menu.php3){lang}>
+			<INCLURE(mod_popul.php3){lang}>
 		</div>
 		
 		<div id="content">
 		
 			<div id="breadcrumb">
-				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique=0}{lang})]
+				<INCLURE(mod_jerarquiasec.php3){id_rubrique=0}{lang}>
 			</div>
 
-				
+
+
 				<h1>
-					[(#LOGO_MOT|right||image_reduire{64})][(#TITRE|supprimer_numero)]
+					[(#LOGO_MOT|right||reduire_image{64})][(#TITRE|supprimer_numero)]
 				</h1>
 				[(#DESCRIPTIF)]
 				[<div class="featurebox">(#NOTES)</div>]				
@@ -51,7 +50,7 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 				<B_articles_liste>
 				<h1><:articles:></h1>
 				<BOUCLE_articles_liste(ARTICLES){id_mot}{type_mot!="Design"}{par date}{inverse}{"<hr/>"}>
-					[(#INCLURE{fond=datos_articulo}{id_article}{lang})]
+					<INCLURE(datos_articulo.php3){id_article}{lang}>
 				</BOUCLE_articles_liste>
 				</B_articles_liste>	
 			<!--
@@ -63,13 +62,13 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 			
 			<hr/>
 			
-			[(#INCLURE{fond=pie}{lang})]
+			<INCLURE(pie.php3){lang}>
 			
 		</div>
 		
 		<div id="sidebar">
-			 [(#INCLURE{fond=mod_mots}{lang})]
-			 [(#INCLURE{fond=mod_breves}{lang})]
+			 <INCLURE(menumot.php3){lang}>
+			 <INCLURE(mod_breves.php3){lang}>
 		</div>
 	</div>
 	

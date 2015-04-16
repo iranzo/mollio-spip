@@ -1,24 +1,15 @@
 <!--[if lt IE 7.]>
-<script defer type="text/javascript" src="#DOSSIER_SQUELETTE/js/pngfix.js"></script>
+<script defer type="text/javascript" src="mollio/js/pngfix.js"></script>
 <![endif]-->
 
 <div id="header">
 		<B_banner>
 		<div>
-		<BOUCLE_banner(ARTICLES){titre_mot="Banner_cabecera"}{par date}{inverse}{age_redac<0}{0,1}>
-			[(#LOGO_ARTICLE|right|#URL_SITE|image_reduire{0,73}|inserer_attribut{'alt',#TITRE})]
+		<BOUCLE_banner(ARTICLES){titre_mot="Banner_cabecera"}{par date}{inverse}{0,1}>
+			[(#LOGO_ARTICLE|right|#URL_SITE|reduire_image{0,73}|inserer_attribut{'alt',#TITRE})]
 		</BOUCLE_banner>
 		</div>
 		</B_banner>
-			<B_banneralt>
-			                <div>
-			                <BOUCLE_banneralt(ARTICLES){titre_mot="Banner_cabecera"}{par date}{inverse}{0,1}>
-				                [(#LOGO_ARTICLE|right|#URL_SITE|image_reduire{0,73}|inserer_attribut{'alt',#TITRE})]
-	                                </BOUCLE_banneralt>
-	                                </div>
-                        </B_banneralt>
-			                                
-		<//B_banner>
 		<div id="site-name">
 	                <B_texto>
 				<BOUCLE_texto(ARTICLES){titre_mot="Frase"}{par date}{inverse}{0,1}>
@@ -26,51 +17,16 @@
 				</BOUCLE_texto>
 	                </B_texto>
 		</div>
-
-		<BOUCLE_banner2(ARTICLES){titre_mot="Banner_cabecera"}{par date}{inverse}{age_redac<0}{0,1}>
-		</BOUCLE_banner2>
-			<B_banneralt2>
-			                <BOUCLE_banneralt2(ARTICLES){titre_mot="Banner_cabecera"}{par date}{inverse}{0,1}>
-	                                </BOUCLE_banneralt2>
-                                	<B_head2_cfg>
-					<BOUCLE_head2_cfg(ARTICLES){titre_mot="_is_site"}{0,1}>
-						<BOUCLE_head2_cfg_elem(ARTICLES){id_article}{titre_mot="_is_config"}{0,1}>
-							<BOUCLE_head_cfg_recherche(ARTICLES){id_article}{titre_mot="_has_persistent_recherche"}{0,1}>
-				                              [<div id="search">(#FORMULAIRE_RECHERCHE)</div>]
-		                                        </BOUCLE_head_cfg_recherche>
-	                                        </BOUCLE_head2_cfg_elem>
-                                        </BOUCLE_head2_cfg>
-                        </B_banneralt2>
-		        [<div id="search">(#FORMULAIRE_RECHERCHE)</div>]
-		<//B_banneralt2>
-		
-		<//B_banner2>		
-
+		[<div id="search">
+			(#FORMULAIRE_RECHERCHE)
+			
+		</div>]
 		<ul id="nav">
-			<li <?php if (#ID==1) {echo "class=\"active\"";} ?> ><a
-		href="#URL_SITE_SPIP/" alt="<:accueil_site:>"><:accueil_site:></a></li>
-			<li <?php if (#ID==2) {echo "class=\"active\"";} ?> ><a href="#URL_PAGE{plan}"><:plan_site:></a></li>
-			<B_head_cfg>
-			<BOUCLE_head_cfg(ARTICLES){titre_mot="_is_site"}{0,1}>
-				<BOUCLE_head_cfg_elem(ARTICLES){id_article}{titre_mot="_is_config"}{0,1}>
-					<BOUCLE_head_cfg_plan(ARTICLES){id_article}{titre_mot="_has_plan"}{0,1}>
-						<li <?php if (#ID==2) {echo "class=\"active\"";} ?> ><a href="#URL_PAGE{plan}"><:plan_site:></a></li>
-					</BOUCLE_head_cfg_plan>
-					<BOUCLE_head_cfg_traduc(ARTICLES){id_article}{titre_mot="_has_email"}{0,1}>
-						<li <?php if (#ID==3) {echo "class=\"active\"";} ?> ><a href="#URL_PAGE{correo}"><:correo:></a></li>
-					</BOUCLE_head_cfg_traduc>
-					<BOUCLE_head_cfg_jabber(ARTICLES){id_article}{titre_mot="_has_jabber"}{0,1}>
-						<li <?php if (#ID==4) {echo "class=\"active\"";} ?> ><a href="#URL_PAGE{jabber}"><:jabber:></a></li>
-					</BOUCLE_head_cfg_jabber>
-					<BOUCLE_head_cfg_forum(ARTICLES){id_article}{titre_mot="_has_forum"}{0,1}>
-						<li <?php if (#ID==5) {echo "class=\"active\"";} ?> ><a href="<BOUCLE_art_foros(ARTICLES){titre_mot="_is_forums"}{0,1}>#URL_ARTICLE</BOUCLE_art_foros>"><:forum:></a></li>
-					</BOUCLE_head_cfg_forum>					
-				</BOUCLE_head_cfg_elem>
-			</BOUCLE_head_cfg>
-				<li <?php if (#ID==3) {echo "class=\"active\"";} ?> ><a href="#URL_PAGE{correo}"><:correo:></a></li>
-				<li <?php if (#ID==4) {echo "class=\"active\"";} ?> ><a href="#URL_PAGE{jabber}"><:jabber:></a></li>				
-			<//B_head_cfg>
-			<li <?php if (#ID==5) {echo "class=\"active\"";} ?> ><a href="#URL_PAGE{recherche}"><:busqueda:></a></li>
+			<li <?php if (#ID==1) {echo "class=\"active\"";} ?> ><a href="./"><:accueil_site:></a></li>
+			<li <?php if (#ID==2) {echo "class=\"active\"";} ?> ><a href="plan.php3"><:plan_site:></a></li>
+			<li <?php if (#ID==3) {echo "class=\"active\"";} ?> ><a href="correo.php3"><:correo:></a></li>
+			<li <?php if (#ID==4) {echo "class=\"active\"";} ?> ><a href="jabber.php3"><:jabber:></a></li>				
+			<li <?php if (#ID==5) {echo "class=\"active\"";} ?> ><a href="recherche.php3"><:busqueda:></a></li>	
 			<li <?php if (#ID==6) {echo "class=\"active\"";} ?> ><a href="ecrire/"><:espace_prive:></a></li>
 		</ul>
 </div>

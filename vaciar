@@ -1,6 +1,0 @@
-UPDATE spip_articles SET url_propre='' WHERE url_propre<>'';
-UPDATE spip_breves SET url_propre='' WHERE url_propre<>'';
-UPDATE spip_rubriques SET url_propre='' WHERE url_propre<>'';
-UPDATE spip_auteurs SET url_propre='' WHERE url_propre<>'';
-UPDATE spip_mots SET url_propre='' WHERE url_propre<>'';
-

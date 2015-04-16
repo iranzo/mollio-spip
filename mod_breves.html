@@ -4,8 +4,8 @@
 		<:breves:>
 	</h3>
 	<ul>
-		<BOUCLE_last_BREVES(BREVES){age<30}{par date}{inverse}{0,5}>
-			[<li>[(#LOGO_BREVE|#URL_BREVE|image_reduire{20})]<a href="#URL_BREVE">(#TITRE)</a></li>]
+		<BOUCLE_last_BREVES(BREVES){par date}{inverse}{0,8}>
+			[<li>[(#LOGO_BREVE|#URL_BREVE|reduire_image{20})]<a href="#URL_BREVE">(#TITRE)</a></li>]
 		</BOUCLE_last_BREVES>
 	</ul>
 </div>

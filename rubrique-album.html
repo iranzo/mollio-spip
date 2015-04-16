@@ -1,4 +1,3 @@
-#CACHE{7200}
 <BOUCLE_rubprincipale(RUBRIQUES){id_rubrique}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
@@ -14,26 +13,31 @@ http://creativecommons.org/licenses/GPL/2.0/
 Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
 -->
 <head>
-	[(#INCLURE{fond=css})]
-	[(#INCLURE{fond=header})]
+	<INCLURE(css.php3)>
+	<INCLURE(header.php3)>
 	<title>[(#TITRE|supprimer_numero|textebrut)] - #NOM_SITE_SPIP</title>
 	<meta name="Keywords" content="<BOUCLE_articulosclav(ARTICLES){type_mot!=Design}{id_rubrique}{","}><BOUCLE_keywords(MOTS){id_article}{doublons}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords></BOUCLE_articulosclav>"/>
 	[<meta name="Description" content="(#DESCRIPTIF|textebrut)"/>]
-	<link rel="alternate" type="application/rss+xml" title="#NOM_SITE_SPIP (#TITRE) RSS" href="[(#URL_PAGE{backend}|parametre_url{'id_rubrique',#ID_RUBRIQUE})]"/>	
 </head>
 <body id="type-c">
 <div id="wrap">
-	[(#INCLURE{fond=cabecera}{id=0}{lang})]
+	<INCLURE(cabecera.php3){id=0}{lang}>
+	
 	<div id="content-wrap">
+	
 		<div id="utility">
-			[(#INCLURE{fond=rubrique-album_left_mods}{id_rubrique}{lang})]
+
+			<INCLURE(menu.php3){id_rubrique}{lang}>
+			<INCLURE(mod_popul.php3){lang}>
 		</div>
+		
 		<div id="content">
+		
 			<div id="breadcrumb">
-				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique}{lang})]
+				<INCLURE(mod_jerarquiasec.php3){id_rubrique}{lang}>
 			</div>
 				<hr/>
-						<h1>[(#LOGO_RUBRIQUE|right||image_reduire{64})][(#TITRE|supprimer_numero)]</h1>
+						<h1>[(#LOGO_RUBRIQUE|right||reduire_image{64})][(#TITRE|supprimer_numero)]</h1>
 						[(#DESCRIPTIF)]
 						[<hr/>(#TEXTE)]
 						[<hr/>(#NOTES)]
@@ -41,20 +45,26 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 					<B_articles_liste>
 						<h1><:articles:></h1>
 					<BOUCLE_articles_liste(ARTICLES){id_rubrique}{type_mot!="Design"}{par date}{inverse}{"<hr/>"}>
-						[(#INCLURE{fond=datos_album}{id_article}{lang})]
+						<INCLURE(datos_album.php3){id_article}{lang}>
 					</BOUCLE_articles_liste>
 					</B_articles_liste>
+
 			<!--
 			<div class="pagination">
 				<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
 				<h4>Page 1 of 5</h4>
 			</div>
 			-->
+			
 			<hr/>
-			[(#INCLURE{fond=pie}{lang})]
+			
+			<INCLURE(pie.php3){lang}>
+			
 		</div>
+		
 		<div id="sidebar">
-			[(#INCLURE{fond=rubrique-album_right_mods}{id_rubrique}{lang})]		
+			<INCLURE(mod_agenda.php3){lang}>
+			<INCLURE(mod_breves.php3){lang}>
 		</div>
 	</div>
 </div>

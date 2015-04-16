@@ -12,65 +12,56 @@ http://creativecommons.org/licenses/GPL/2.0/
 Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
 -->
 <head>
-	[(#INCLURE{fond=css})]
-	[(#INCLURE{fond=header})]
+	<INCLURE(css.php3)>
+	<INCLURE(header.php3)>
 	<title><:plan_site:> - #NOM_SITE_SPIP</title>
 	<meta name="Keywords" content="<BOUCLE_articulosclav(ARTICLES){type_mot!=Design}{","}><BOUCLE_keywords(MOTS){id_article}{doublons}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords></BOUCLE_articulosclav>"/>
 	<meta name="Description" content="<:plan_site:>"/>
 </head>
+
 <body id="type-c">
 <div id="wrap">
-	[(#INCLURE{fond=cabecera}{id=2}{lang})]
+	<INCLURE(cabecera.php3){id=2}{lang}>
 	<div id="content-wrap">
+	
 		<div id="utility">
-			[(#INCLURE{fond=plan_left_mods}{lang})]
+
+			<INCLURE(menu.php3){lang}>
+			<INCLURE(mod_popul.php3){lang}>
 		</div>
+		
 		<div id="content">
+		
 			<div id="breadcrumb">
-				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique=0}{lang})]
+				<INCLURE(mod_jerarquiasec.php3){id_rubrique=0}{lang}>
 			</div>
 				<h1><:plan_site:></h1>
 				
-				<div id="foros">
+				
 				<BOUCLE_RubExclues(RUBRIQUES){titre_mot=Design}{doublons}>
 				</BOUCLE_RubExclues>
 				<B_Autres>
-				<ul id="foros">
+				<ul>
 				<BOUCLE_Autres(RUBRIQUES){id_parent=0}{par titre}{doublons}>
-					<li id="foros">
-						<strong>
-							<a href="#URL_RUBRIQUE">
-								[(#LOGO_RUBRIQUE|right||image_reduire{32})][(#TITRE|supprimer_numero)]
-							</a>
-						</strong>
+					<li><strong><a href="#URL_RUBRIQUE">[(#LOGO_RUBRIQUE|right||reduire_image{32})][(#TITRE|supprimer_numero)]</a></strong>
 					<B_articles_recents_Racine>
-						<ul id="foros">
+						<ul>
 							<BOUCLE_articles_recents_Racine(ARTICLES){type_mot!="Design"}{tout}{id_rubrique}{par date}{inverse}>
-								<li id="foros">
-									<a href="#URL_ARTICLE">
-										[(#LOGO_ARTICLE|left||image_reduire{16})][(#TITRE|supprimer_numero)]
-									</a>
-								</li>
-							</BOUCLE_articles_recents_Racine>
+							<li><a href="#URL_ARTICLE">[(#LOGO_ARTICLE|left||reduire_image{16})][(#TITRE|supprimer_numero)]</a></li>
+						</BOUCLE_articles_recents_Racine>
 						</ul>
 					</B_articles_recents_Racine>
+
 					<B_Autres_Details>
-						<ul id="foros">
+						<ul>
 						<BOUCLE_Autres_Details(RUBRIQUES){id_parent}{par num titre}{doublons}>
-							<li id="foros">
-								<a href="#URL_RUBRIQUE">
-									[(#LOGO_RUBRIQUE|right||image_reduire{32})][(#TITRE|supprimer_numero)]
-								</a>
+							<li><a href="#URL_RUBRIQUE">[(#LOGO_RUBRIQUE|right||reduire_image{32})][(#TITRE|supprimer_numero)]</a>
 							<BOUCLE_Recurssion(BOUCLE_Autres_Details)>
 							</BOUCLE_Recurssion>
 							<B_articles_recents_Autres>
-								<ul id="foros">
+								<ul>
 								<BOUCLE_articles_recents_Autres(ARTICLES) {tout}{id_rubrique}{par date}{inverse}>
-									<li id="foros">
-										<a href="#URL_ARTICLE">
-											[(#LOGO_ARTICLE|left||image_reduire{16})][(#TITRE|supprimer_numero)]
-										</a>
-									</li>
+									<li><a href="#URL_ARTICLE">[(#LOGO_ARTICLE|left||reduire_image{16})][(#TITRE|supprimer_numero)]</a></li>
 								</BOUCLE_articles_recents_Autres>
 								</ul>
 							</B_articles_recents_Autres>
@@ -82,14 +73,28 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 				</BOUCLE_Autres>
 				</ul>
 				</B_Autres>
-				</div>
+
+			<!--
+			<div class="pagination">
+				<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
+				<h4>Page 1 of 5</h4>
+			</div>
+			-->
+			
 			<hr/>
-			[(#INCLURE{fond=pie}{lang})]
+			
+			<INCLURE(pie.php3){lang}>
+			
 		</div>
+		
 		<div id="sidebar">
-			[(#INCLURE{fond=plan_right_mods}{lang})]
+			<INCLURE(mod_agenda.php3){lang}>
+			<INCLURE(mod_breves.php3){lang}>
 		</div>
 	</div>
+	
 </div>
 </body>
 </html>
+
+

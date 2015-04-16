@@ -1,68 +1,205 @@
-#CACHE{86400}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <BOUCLE_articulos(DOCUMENTS) {id_document}>
-	<BOUCLE_recuparticle(ARTICLES){id_document}>
-		<html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
+<BOUCLE_recuparticle(ARTICLES){id_document}>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
+<!--
+Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
+Community: Mollio http://www.mollio.org $
+License: Released Under the "Common Public License 1.0", 
+http://www.opensource.org/licenses/cpl.php
+License: Released Under the "Creative Commons License", 
+http://creativecommons.org/licenses/by/2.5/
+License: Released Under the "GNU Creative Commons License", 
+http://creativecommons.org/licenses/GPL/2.0/
+Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
+-->
+
+<head>
+	<INCLURE(css.php3)>
+	<INCLURE(header.php3)>
+	<title>[(#TITRE|supprimer_numero|textebrut)] - #NOM_SITE_SPIP</title>
+        <meta name="Description" content="[(#DESCRIPTIF|supprimer_tags|textebrut|couper{100})]"/>
+        <meta name="Keywords" content="<BOUCLE_keywords(MOTS){id_article}{","}>[(#TITRE|supprimer_tags)] </BOUCLE_keywords>"/>
+        <meta name="Author" content="<BOUCLE_author(AUTEURS){id_article}{","}>[(#NOM|supprimer_tags)][((#EMAIL|supprimer_tags))]</BOUCLE_author>"/>
+</head>
+
+<body id="type-c">
+<div id="wrap">
+	<INCLURE(cabecera.php3){id=0}{lang}>
+	<div id="content-wrap">
+	
+		<div id="utility">
+
+			<INCLURE(menu.php3){lang}>
+			<INCLURE(mod_popul.php3){lang}>
+		</div>
+		
+		<div id="content">
+		
+			<div id="breadcrumb">
+				<INCLURE(mod_jerarquia.php3){id_article}{lang}>
+			</div>
+
+				        <div class="inside">
+					
+				
+
+#DEBUT_SURLIGNE
+[(#SURTITRE|centrer)]
+<h1>[(#LOGO_ARTICLE_RUBRIQUE|right|inserer_attribut{'alt',#TITRE}|reduire_image{64})][(#TITRE)]</h1>
+[(#SOUSTITRE)]
+
+  <h2 class="date-header">
+            [(#DATE|nom_jour)] [(#DATE|affdate)]
+  </h2>
+  <p class="post-footer"><B_auteurs_un><:enviadopor:> <BOUCLE_auteurs_un(AUTEURS) {id_article} {", "}><a href="#URL_AUTEUR">#NOM</a></BOUCLE_auteurs_un>
+  [<h3 align="right"><:enlace:>: <a href="#URL_SITE">(#NOM_SITE)</a></h3>]
+
+#FIN_SURLIGNE
+ 
+ 
+  #FORMULAIRE_SIGNATURE
+  
+   
+   #DEBUT_SURLIGNE
+   
+   [(#CHAPO|justifier)]
+   [(#TEXTE|justifier)]
+   [(#PS|justifier)]
+   [<div class="featurebox">(#NOTES)</div>]   
+   
+   #FIN_SURLIGNE
+   
+</BOUCLE_recuparticle> 
+<BOUCLE_photobig(DOCUMENTS){id_document}>
+
+[<h3 align="center">(#TITRE)</h3>]
+
+<span class="table">
+	<a href="[(#URL_DOCUMENT)]">
+	
+	<table border="0" align="center" bgcolor="Black">
+	<tbody align="center">
+		<tr>
+			<td></td>
+			<td bgcolor="White"><img src="mollio/images/topneg.png" width="100%" alt=''/></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>[(#URL_DOCUMENT||inserer_attribut{'alt',#TITRE}|reduire_image{400})]</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td bgcolor="White"><img src="mollio/images/botneg.png" width="100%" alt=''/></td>
+			<td></td>
+		</tr>	    
+	  </tbody>
+	</table>	
+	</a>
+</span>
+<br clear="all"/>
+<!-- TITRE DE LA PHOTO -->
+
+<!-- DESCRIPTIF DE LA PHOTO -->
+[(#DESCRIPTIF)]
+<!-- colonne de séparaton  -->
+
+
+<?php $doc_encours = "#ID_DOCUMENT"; ?> 
+
+
+<!-- première tiers des miniatures -->
+<table class="table"  border="0" align="center" cellpadding="0" cellspacing="0" summary="">
+<td>
+<table border="0" cellpadding="3" cellspacing="0" summary="">
+<BOUCLE_art1(ARTICLES){id_document}>
+<BOUCLE_minis1(DOCUMENTS){id_article}{1/3}>
+    <tr>
+        <?php
+            if ($doc_encours == #ID_DOCUMENT){
+                    echo "<td bgcolor=\"#993333\">";
+            } else {
+                    echo "<td>";
+            }
+        ?>
+	<a href="album#ID_DOCUMENT.html">[(#LOGO_DOCUMENT)]</a></td>
+    </tr>
+</BOUCLE_minis1>
+</BOUCLE_art1>
+</table>
+</td>
+         
+         
+<!-- deuxième tiers des  miniatures -->
+<td valign="top">
+<table border="0" cellpadding="3" cellspacing="0" summary="">
+<BOUCLE_art2(ARTICLES){id_document}>
+<BOUCLE_minis2(DOCUMENTS){id_article}{2/3}>
+       <tr>
+            <?php
+               if ($doc_encours == #ID_DOCUMENT){
+                       echo "<td bgcolor=\"#993333\">";
+               } else {
+                       echo "<td>";
+               }
+            ?>
+	    <a href="album#ID_DOCUMENT.html">#LOGO_DOCUMENT</a></td>
+       </tr>
+</BOUCLE_minis2>
+</BOUCLE_art2>
+</table>
+</td>     
+     
+<!-- troisième tiers des  miniatures -->
+<td valign="top">
+<table border="0" cellpadding="3" cellspacing="0" summary="">
+<BOUCLE_art3(ARTICLES){id_document}>
+<BOUCLE_minis3(DOCUMENTS){id_article}{3/3}>
+       <tr>
+            <?php
+               if ($doc_encours == #ID_DOCUMENT){
+                       echo "<td bgcolor=\"#993333\">";
+               } else {
+                       echo "<td>";
+               }
+            ?>
+	    <a href="album#ID_DOCUMENT.html">#LOGO_DOCUMENT</a></td>
+       </tr>
+</BOUCLE_minis3>
+</BOUCLE_art3>
+</table>
+</td>
+</tr>
+</table>
+
+</BOUCLE_photobig>
+      
+
+			<hr/>
 			<!--
-				Copyright: Daemon Pty Limited 2006, http://www.daemon.com.au
-				Community: Mollio http://www.mollio.org $
-				License: Released Under the "Common Public License 1.0", 
-				http://www.opensource.org/licenses/cpl.php
-				License: Released Under the "Creative Commons License", 
-				http://creativecommons.org/licenses/by/2.5/
-				License: Released Under the "GNU Creative Commons License", 
-				http://creativecommons.org/licenses/GPL/2.0/
-				Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
+			<div class="pagination">
+				<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
+				<h4>Page 1 of 5</h4>
+			</div>
 			-->
-			<head>
-				[(#INCLURE{fond=css})]
-				[(#INCLURE{fond=header})]
-				<title>[(#TITRE|supprimer_numero|textebrut)] - #NOM_SITE_SPIP</title>
-			        <meta name="Description" content="[(#DESCRIPTIF|supprimer_tags|textebrut|couper{100})]"/>
-			        <meta name="Keywords" content="<BOUCLE_keywords(MOTS){id_article}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords>"/>
-			        <meta name="Author" content="<BOUCLE_author(AUTEURS){id_article}{","}>[(#NOM|supprimer_tags)][((#EMAIL|supprimer_tags))]</BOUCLE_author>"/>
-			</head>
-			<body id="type-c">
-				<div id="wrap">
-					[(#INCLURE{fond=cabecera}{id=0}{lang})]
-					<div id="content-wrap">
-					<div id="utility">
-						[(#INCLURE{fond=album_left_mods}{id_document}{id_article}{lang})]
-					</div>
-					<div id="content">
-						<div id="breadcrumb">
-							[(#INCLURE{fond=mod_jerarquia}{id_article}{lang})]
-						</div>
-					        <div class="inside">
-							[(#SURTITRE|centrer)]
-							<h1>[(#LOGO_ARTICLE_RUBRIQUE|right|inserer_attribut{'alt',#TITRE}|image_reduire{64})][(#TITRE)]</h1>
-							[(#SOUSTITRE)]
-							<h2 class="date-header">
-						        	[(#DATE|nom_jour)] [(#DATE|affdate)]
-							</h2>
-							[<p class="post-footer"><:enviadopor:> (#LESAUTEURS)]
-							[<h3 align="right"><:enlace:>: <a href="#URL_SITE">(#NOM_SITE)</a></h3>]
-							#FORMULAIRE_SIGNATURE
-							[(#CHAPO|justifier)]
-							[(#TEXTE|justifier)]
-							[(#PS|justifier)]
-							[<div class="featurebox">(#NOTES)</div>]   
-	</BOUCLE_recuparticle>
-							<hr/>
-							[(#INCLURE{fond=album_miniaturas}{id_document})]
-							<!--
-								<div class="pagination">
-									<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
-									<h4>Page 1 of 5</h4>
-								</div>
-							-->
-							[(#INCLURE{fond=pie}{lang})]
-						</div>
-						<div id="sidebar">
-							[(#INCLURE{fond=album_right_mods}{id_document}{id_article}{lang})]
-						</div>
-					</div>
-				</div>
-			</body>
-		</html>
+						
+			<INCLURE(pie.php3){lang}>
+
+			
+		</div>
+		
+		<div id="sidebar">
+			<INCLURE(mod_nextprev.php3){id_document}{id_article}{lang}>
+			<INCLURE(mod_exif.php3){id_document}{lang}>
+                        <INCLURE(mod_artsautalbum.php3){id_document}{lang}>
+                        <INCLURE(mod_breves.php3){lang}>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>
+
 </BOUCLE_articulos>

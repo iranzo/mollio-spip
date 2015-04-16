@@ -12,33 +12,38 @@ http://creativecommons.org/licenses/GPL/2.0/
 Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
 -->
 <head>
-	[(#INCLURE{fond=css})]
-	[(#INCLURE{fond=header})]
+	<INCLURE(css.php3)>
+	<INCLURE(header.php3)>
 	<title><:correo:> - #NOM_SITE_SPIP</title>
 	<meta name="Description" content="<:serviciocorreo:>" />
 </head>
 
 <body id="type-c">
 <div id="wrap">
-	[(#INCLURE{fond=cabecera}{id=3}{lang})]
+	<INCLURE(cabecera.php3){id=3}{lang}>
 	<div id="content-wrap">
+	
 		<div id="utility">
-			[(#INCLURE{fond=correo_left_mods}{lang})]
+
+			<INCLURE(menu.php3){lang}>
+			<INCLURE(mod_popul.php3){lang}>
 		</div>
+		
 		<div id="content">
+		
 			<div id="breadcrumb">
-				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique=0}{lang})]
+				<INCLURE(mod_jerarquiasec.php3){id_rubrique=0}{lang}>
 			</div>
 
 					<h1><:serviciocorreo:> #NOM_SITE_SPIP</h1>
 
-<form action="https://Alufis35.uv.es/squirrel/src/redirect.php" name="theform" method="post">
+<form action="https://Alufis35.uv.es/cgi-bin/postman" name="theform" method="post" onsubmit="return checkFields()">
 	<:usuario:>:
 	<input type="hidden" name="lang" value="spa"/>
-	<input type="text" size="10" name="login_username" value=""/><br/>
+	<input type="text" size="10" name="user" value=""/><br/>
 
 	<:clave:>:
-	<input type="password" size="10" name="secretkey"/>
+	<input type="password" size="10" name="pw"/>
 	<p>
 		<input type="hidden" name="cmd" value="login"/>
 		<input type="submit" name="Login_INBOX" value="<:entrar:>"/>
@@ -55,12 +60,13 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 			
 			<hr/>
 			
-			[(#INCLURE{fond=pie}{lang})]
+			<INCLURE(pie.php3){lang}>
 			
 		</div>
 		
 		<div id="sidebar">
-			[(#INCLURE{fond=correo_right_mods}{lang})]
+			<INCLURE(mod_agenda.php3){lang}>
+			<INCLURE(mod_breves.php3){lang}>
 		</div>
 	</div>
 	

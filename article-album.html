@@ -1,8 +1,10 @@
-<BOUCLE_articulos(ARTICLES){id_article}{0,1}>
+<BOUCLE_articulos(ARTICLES) {id_article}>
+<BOUCLE_datosart(ARTICLES){id_article}{0,1}>
 <BOUCLE_art3(DOCUMENTS){id_article}{0,1}>
 <?php
-header("Location: [(#URL_PAGE{album}|parametre_url{'id_document',#ID_DOCUMENT,&})]");
+header("Location: album#ID_DOCUMENT.html");
 exit;
 ?>
 </BOUCLE_art3>
+</BOUCLE_datosart>
 </BOUCLE_articulos>

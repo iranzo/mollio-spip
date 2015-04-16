@@ -1,4 +1,3 @@
-#CACHE{7200}
 <BOUCLE_rubprincipale(RUBRIQUES){id_rubrique}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
@@ -14,30 +13,40 @@ http://creativecommons.org/licenses/GPL/2.0/
 Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
 -->
 <head>
-	[(#INCLURE{fond=css})]
-	[(#INCLURE{fond=header})]
+	<INCLURE(css.php3)>
+	<INCLURE(header.php3)>
 	<title>[(#TITRE|supprimer_numero|textebrut)] - #NOM_SITE_SPIP</title>
 	<meta name="Keywords" content="<BOUCLE_articulosclav(ARTICLES){type_mot!=Design}{id_rubrique}{","}><BOUCLE_keywords(MOTS){id_article}{doublons}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords></BOUCLE_articulosclav>"/>
 	<meta name="Description" content="<BOUCLE_desc(ARTICLES){titre_mot="Frase"}{par date}{inverse}{0,1}>[(#DESCRIPTIF|textebrut)]</BOUCLE_desc>"/>
 	[<meta name="Description" content="(#DESCRIPTIF|textebrut)"/>]
-	<link rel="alternate" type="application/rss+xml" title="#NOM_SITE_SPIP (#TITRE) RSS" href="[(#URL_PAGE{backend}|parametre_url{'id_rubrique',#ID_RUBRIQUE})]"/>
+	<link rel="alternate" type="application/rss+xml" title="#NOM_SITE_SPIP (#TITRE) RSS" href="backend.php3?id_rubrique=#ID_RUBRIQUE"/>
 </head>
 <body id="type-c">
 <div id="wrap">
-	[(#INCLURE{fond=cabecera}{id=0}{lang})]
+	<INCLURE(cabecera.php3){id=0}{lang}>
 	<div id="content-wrap">
+	
 		<div id="utility">
-			[(#INCLURE{fond=rubrique-agenda_left_mods}{id_rubrique}{lang})]
+
+			<INCLURE(menu.php3){lang}>
+			<INCLURE(mod_popul.php3){lang}>
 		</div>
+		
 		<div id="content">
+		
 			<div id="breadcrumb">
-				[(#INCLURE{fond=mod_jerarquia}{id_article}{lang})]
+				<INCLURE(mod_jerarquia.php3){id_article}{lang}>
 			</div>
-					<h1>[(#LOGO_RUBRIQUE|right||image_reduire{64})][(#TITRE|supprimer_numero)]</h1>
+
+
+					<h1>[(#LOGO_RUBRIQUE|right||reduire_image{64})][(#TITRE|supprimer_numero)]</h1>
 					[(#DESCRIPTIF)]
 					[<hr/>(#TEXTE)]
 					[<div class="featurebox">(#NOTES)</div>]					
+
 				<p class="ie5bug">&nbsp;</p>
+				
+				
 <?php
 $months = array('', '<:enero:>', '<:febrero:>', '<:marzo:>', '<:abril:>','<:mayo:>', '<:junio:>', '<:julio:>','<:agosto:>','<:septiembre:>','<:octubre:>','<:noviembre:>', '<:diciembre:>');
 $days = array('<:domingo:>', '<:lunes:>', '<:martes:>', '<:miercoles:>', '<:jueves:>', '<:viernes:>','<:sabado:>');
@@ -58,7 +67,7 @@ $titrePage = 'Agenda - '.$months[intval($M)].' '.$Y;
 
 // Liste des rubriques de l agenda
 $branche = array();
-<BOUCLE_courante(RUBRIQUES){racine}>
+<BOUCLE_courante(RUBRIQUES){id_rubrique}>
 	<BOUCLE_branche(RUBRIQUES){branche}>
 		$branche[] = #ID_RUBRIQUE;
 	</BOUCLE_branche>
@@ -78,12 +87,14 @@ $events = array();
 	}
 </BOUCLE_evts_com>
 ?>
+
+
 <!-- Fabrication du tableau : l'en tête -->
 <form name="navigation" method="get" action="">
 <table cellpadding="5" cellspacing="0" align="center" border="1" class="agenda">
 <tr>
 <th colspan="7" class="agendaNav">
-	<a href="spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&date=<?php echo (($M - 1> 0) ? $Y : ($Y - 1)); ?>-<?php printf('%02d', ($M - 1)> 0 ? ($M - 1) : 12); ?>-01&genre=<?php echo $genre; ?>"><img src="#DOSSIER_SQUELETTE/images/prev.png" title="<:previo:>" border="0" alt="<:previo:>"/></a>
+	<a href="agenda.php3?id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo (($M - 1> 0) ? $Y : ($Y - 1)); ?>-<?php printf('%02d', ($M - 1)> 0 ? ($M - 1) : 12); ?>-01&amp;genre=<?php echo $genre; ?>"><img src="IMG/prev.gif" title="<:previo:>" border="0" alt="<:previo:>"/></a>
 	<select name="var_nav_month">
 	<?php
 	for($i = 1; $i < 13; $i++) {
@@ -107,11 +118,13 @@ $events = array();
 	}
 	?>
 	</select>
-	<input type="button" value="<:aceptar:>" onclick="document.location.href='spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&amp;date=' + window.document.navigation.var_nav_year.value + '-' + window.document.navigation.var_nav_month.value + '-01&amp;genre=' + window.document.navigation.var_nav_cle.value ; return false;"/>
-	<a href="spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&date=<?php echo (($M + 1 < 13) ? $Y : ($Y + 1)); ?>-<?php printf('%02d', ($M + 1) < 13 ? ($M + 1) : 1); ?>-01&genre=<?php echo $genre; ?>"><img src="#DOSSIER_SQUELETTE/images/sig.png" title="<:siguiente:>" border="0" alt="<:siguiente:>"/></a>
-	<input type="button" value="<:irahoy:>" onclick="document.location.href='spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo (date('Y-m-d')); ?>&amp;genre=<?php echo $genre ?>'; return false;"/>
+	<input type="button" value="<:aceptar:>" onclick="document.location.href='agenda.php3?id_rubrique=#ID_RUBRIQUE&amp;date=' + window.document.navigation.var_nav_year.value + '-' + window.document.navigation.var_nav_month.value + '-01&amp;genre=' + window.document.navigation.var_nav_cle.value ; return false;"/>
+	<a href="agenda.php3?id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo (($M + 1 < 13) ? $Y : ($Y + 1)); ?>-<?php printf('%02d', ($M + 1) < 13 ? ($M + 1) : 1); ?>-01&amp;genre=<?php echo $genre; ?>"><img src="IMG/next.gif" title="<:siguiente:>" border="0" alt="<:siguiente:>"/></a>
+	<input type="button" value="<:irahoy:>" onclick="document.location.href='agenda.php3?id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo (date('Y-m-d')); ?>&amp;genre=<?php echo $genre ?>'; return false;"/>
 </th>
 </tr>
+
+
 <!-- Fabrication du tableau : les données -->
 <tr> 
 <?php
@@ -157,21 +170,21 @@ while((date('m', $Time) == $M) || (date('w', $Time) != 1)) {
 </tr>
 </table>
 </form>
-<hr/>
+				<hr/>
 <!-- Les thèmes avec récursivité -->
 <h2><:leyenda:>: </h2>
 <br/>
 <BOUCLE_themes(RUBRIQUES){titre_mot="Agenda"}>
 	<ul class="agendaThemes">
 		<li>
-			[(#LOGO_RUBRIQUE|||image_reduire{64})]
-			<a href="spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo $Y ; ?>-<?php printf('%02d', $M); ?>-01&amp;genre=<?php echo $genre; ?>">#TITRE</a>
+			[(#LOGO_RUBRIQUE|||reduire_image{64})]
+			<a href="agenda.php3?id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo $Y ; ?>-<?php printf('%02d', $M); ?>-01&amp;genre=<?php echo $genre; ?>">#TITRE</a>
 			<B_sous_rubriques1>			
 			<ul class="agendaThemes">
 			<BOUCLE_sous_rubriques1(RUBRIQUES){id_parent}{par titre}>
 				<li>
 					[<img src="(#LOGO_RUBRIQUE||extraire_attribut{src}|url_absolue)">]
-					<a href="spip.php?page=rubrique&id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo $Y ; ?>-<?php printf('%02d', $M ); ?>-01&amp;genre=<?php echo $genre; ?>">#TITRE</a>
+					<a href="agenda.php3?id_rubrique=#ID_RUBRIQUE&amp;date=<?php echo $Y ; ?>-<?php printf('%02d', $M ); ?>-01&amp;genre=<?php echo $genre; ?>">#TITRE</a>
 						<B_sous_rubriques>
 						<ul class="agendaThemes">
 							<BOUCLE_sous_rubriques(BOUCLE_sous_rubriques1)></BOUCLE_sous_rubriques>
@@ -184,19 +197,25 @@ while((date('m', $Time) == $M) || (date('w', $Time) != 1)) {
 		</li>
 	</ul>
 </BOUCLE_themes>
+
 			<!--
 			<div class="pagination">
 				<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
 				<h4>Page 1 of 5</h4>
 			</div>
 			-->
+			
 			<hr/>
-			[(#INCLURE{fond=pie}{lang})]
+			
+			<INCLURE(pie.php3){lang}>
+			
 		</div>
+		
 		<div id="sidebar">
-			[(#INCLURE{fond=rubrique-agenda_right_mods}{id_rubrique}{lang})]
+			<INCLURE(mod_breves.php3){lang}>
 		</div>
 	</div>
+
 </div>
 </body>
 </html>

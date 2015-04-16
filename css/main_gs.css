@@ -1,7 +1,7 @@
 
 /* THE BIG GUYS */
 * {margin:0;padding:0}
-body {padding: 0 0 20px;background: #fff repeat-x 0 100%;color:#333;font:83%/1.5 arial,tahoma,verdana,sans-serif}
+body {padding: 0 0 20px;background: #fff url("images/body_bg_gs.gif") repeat-x 0 100%;color:#333;font:83%/1.5 arial,tahoma,verdana,sans-serif}
 
 /* LINKS */
 a,a:link,a:link,a:link,a:hover {background:transparent;text-decoration:underline;cursor:pointer} 
@@ -121,7 +121,7 @@ hr {margin: 1em 0;background:#f2f2f2;height:1px;color:#f2f2f2;border:none;clear:
 	/* end hiding from IE5 mac */
 	
 	/* SEARCH */
-	#search {color:#fff;font-weight:bold;position:absolute;top:auto;right:-80px;left:auto;bottom:auto;width:18em}
+	#search {color:#fff;font-weight:bold;position:absolute;top:10px;right:110px}
 	#search form {margin:0}
 	#search input {width:8em;margin: 0 0 -1px;height:1.2em}
 	#search label {padding:5px 0 0;display:inline}

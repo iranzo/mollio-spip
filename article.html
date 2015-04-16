@@ -1,4 +1,3 @@
-#CACHE{86400}
 <BOUCLE_artprincipale(ARTICLES){id_article}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="#LANG">
@@ -15,94 +14,105 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 -->
 
 	<head>
-		[(#INCLURE{fond=css})]
-		[(#INCLURE{fond=header})]
+		<INCLURE(css.php3)>
+		<INCLURE(header.php3)>	
 		<BOUCLE_head(ARTICLES){id_article}>
 			<title>[(#TITRE|supprimer_numero|textebrut)] - #NOM_SITE_SPIP</title>
                         <meta name="Description" content="[(#DESCRIPTIF|supprimer_tags)]"/> 
 		        <meta name="Keywords" content="<BOUCLE_keywords(MOTS){id_article}{","}>[(#TITRE|supprimer_tags)]</BOUCLE_keywords>"/>
 		        <meta name="Author" content="<BOUCLE_author(AUTEURS){id_article}{","}>[(#NOM|supprimer_tags)][((#EMAIL|supprimer_tags))]</BOUCLE_author>"/>
-		        <meta name="Date" content="#DATE"/>
-			<meta name="Copyright" content="[(#DATE|annee)] [(#LESAUTEURS|supprimer_tags)]"/>
 		</BOUCLE_head>
 	</head>
 <body id="type-c">
 <div id="wrap">
-	[(#INCLURE{fond=cabecera}{id=0}{lang})]
+	<INCLURE(cabecera.php3){id=0}{lang}>
 	<div id="content-wrap">
 	
 		<div id="utility">
 
-			[(#INCLURE{fond=article_left_mods}{id_article}{lang})]
+			<INCLURE(menu.php3){lang}{lang}>
+			<INCLURE(mod_popul.php3){lang}>
 		</div>
 		
 		<div id="content">
 		
 			<div id="breadcrumb">
-				[(#INCLURE{fond=mod_jerarquia}{id_article}{lang})]
+				<INCLURE(mod_jerarquia.php3){id_article}{lang}>
 			</div>
 
 				#DEBUT_SURLIGNE
 				[(#SURTITRE|centrer)]
 				<h1>
-					[(#LOGO_ARTICLE_RUBRIQUE|right|#URL_ARTICLE|image_reduire{64})][(#TITRE|supprimer_numero)]
+					[(#LOGO_ARTICLE_RUBRIQUE|right|#URL_BREVE|reduire_image{64})][(#TITRE|supprimer_numero)]
 				</h1>
 				[(#SOUSTITRE)]
 
 				<h2 class="date-header">
 				        [(#DATE|nom_jour)] [(#DATE|affdate)]
 				</h2>
-				[<p class="post-footer"><:enviadopor:> (#LESAUTEURS)</p>]
+				<B_auteurs_un>
+					<p class="post-footer"><:enviadopor:>
+					 	<BOUCLE_auteurs_un(AUTEURS) {id_article} {", "}>
+						  	<a href="auteur#ID_AUTEUR.html">#NOM</a>
+						</BOUCLE_auteurs_un>
+					</p>
+				</B_auteurs_un>
 				<:dernier_ajout:>: [(#DATE_MODIF|nom_jour)] [(#DATE_MODIF|affdate)]
 				[<h3 align="right"><:enlace:>: <a href="#URL_SITE">(#NOM_SITE)</a></h3>]
 				[<hr/><p class="intro">(#CHAPO|justifier)</p>]
 				[<hr/>(#TEXTE|justifier)<hr/>]
 				[<div class="featurebox">(#NOTES)</div>]
 				[<hr/>(#PS)]
-				#FIN_SURLIGNE
 
-				<div id="zonedoc">
-					<div id="zonedocinterne">
-						<B_documents_portfolio>
-							<div id="documents_portfolio">
-								<h2><:info_portfolio:></h2>
-								<BOUCLE_documents_portfolio(DOCUMENTS) {id_article} {mode=document}{extension==(png|jpg|gif)$} {par date} {doublons}>
-									[<a href="[(#URL_ARTICLE|parametre_url{id_document,#ID_DOCUMENT})]#documents_portfolio"[ title="(#TITRE|couper{80}|texte_backend)"]>(#LOGO_DOCUMENT||image_reduire{0,60}|inserer_attribut{alt,[(#TITRE|couper{80}|texte_backend)]})</a>]
-								</BOUCLE_documents_portfolio>
+				<B_recupdocarticle>
+					<div id="zonedoc">
+						<p class="textezonedoc">
+							<img src="mollio/images/zonedoc.gif" width="12" height="12" alt="">
+							<:documentos:>
+						</p>
+						<div id="zonedocinterne">
+							<p class="textezonedocinterne">&nbsp;</p>
+							<div class="en2col" style="border-right: 1px dotted #006666; position:relative;">
+								<div>
+									<BOUCLE_recupdocarticle(DOCUMENTS){mode=document}{id_article}{"<div style='width:75%;height:5px;border-bottom:1px dotted #006666;'>&nbsp;</div>"}{doublons}{1/2}> 
+										<a href="[(#URL_DOCUMENT)]">
+											<img src="IMG/[(#LOGO_DOCUMENT|fichier)]" alt="[(#TITRE)]">
+											<br>
+											<strong>
+												[(#TITRE)
+												<br/>]
+												#TYPE_DOCUMENT: [(#TAILLE|taille_en_octets)]
+											</strong>
+										</a>
+										[<br/>(#DESCRIPTIF)]
+									</BOUCLE_recupdocarticle>
+								</div>
 							</div>
-						</B_documents_portfolio>
-						<BOUCLE_afficher_document(DOCUMENTS) {id_document} {mode=document}{extension==(png|jpg|gif)$}>
-							<div class="spip_documents spip_documents_center" id="document_actif">
-								[<A HREF="#URL_DOCUMENT">(#FICHIER||image_reduire{400})</A>]
-								[<div class="spip_doc_titre">(#TITRE)</div>]
-								[<div class="spip_doc_descriptif">(#DESCRIPTIF)</div>]
+						<div class="en2col">
+							<div>
+								<BOUCLE_recupdocarticle2(DOCUMENTS){mode=document}{id_article}{"<div style='width:75%;height:5px;border-bottom:1px dotted #006666;'>&nbsp;</div>"}{doublons}>
+										<a href="[(#URL_DOCUMENT)]">
+											<img src="IMG/[(#LOGO_DOCUMENT|fichier)]" alt="[(#TITRE)]">
+											<br>
+											<strong>
+												[(#TITRE)
+												<br/>]
+												#TYPE_DOCUMENT: [(#TAILLE|taille_en_octets)]
+											</strong>
+										</a>
+										[<br/>(#DESCRIPTIF)]
+								</BOUCLE_recupdocarticle2></div>
 							</div>
-						</BOUCLE_afficher_document>								
-						<B_documents_joints>
-							<div id="documents_joints">
-								<h2><:titre_documents_joints:></h2>
-								<ul>
-									<BOUCLE_documents_joints(DOCUMENTS) {id_article} {mode=document} {par date} {doublons}>
-										<li>
-											<div class="spip_doc_titre"><a href="#URL_DOCUMENT" title="<:bouton_telecharger:>">[(#TITRE|sinon{<:info_document:>})]</a> <small>(#TYPE_DOCUMENT[ - (#TAILLE|taille_en_octets)])</small></div>
-											[<div class="spip_doc_descriptif">(#DESCRIPTIF)</div>]</li>
-											<br class="nettoyeur" />
-									</BOUCLE_documents_joints>
-								</ul>
-							</div>
-						</B_documents_joints>
-										
-							
-					</div>					
+						</div>
+					</div>
+					</B_recupdocarticle>
 						<div id="foros">
 						<p class="repondrearticle">
-							<img src="#DOSSIER_SQUELETTE/images/bgrepondre.gif" alt="Responder"/>
+							<img src="mollio/images/bgrepondre.gif" alt="Responder"/>
 							&nbsp;
-							<a href="[(#PARAMETRES_FORUM|url_reponse_forum)]">
+							<a href="forum.php3?[(#PARAMETRES_FORUM)]">
 								<:repondre_article:>
 							</a>
-							&nbsp;
-							[(#INCLUDE{fond=mod_technorati}{id_article})]
 						</p>
 						<a name="forum"></a>
 						<B_forums>
@@ -118,7 +128,7 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 							 <ul id="foros" class="[(#COMPTEUR_BOUCLE)]hollyfix">
 								 <li id="foros">
 									 <p>
-									 	<img src="#DOSSIER_SQUELETTE/images/bgreponse.gif" alt=""/>
+									 	<img src="mollio/images/bgreponse.gif" alt=""/>
 										[<:par_auteur:> <a href="mailto:(#EMAIL|antispam)">#NOM</a>,][(#DATE|affdate)]
 										 [<span class="gras">(#TITRE)</span>]
 									 </p>
@@ -126,9 +136,9 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 								 		[(#TEXTE)]
 								 		[<:info_site:>: <a href="(#URL_SITE)" class="spip_out">#NOM_SITE</a>]
 								 		<p>
-								 			<img src="#DOSSIER_SQUELETTE/images/bgrepondre.gif" alt=""/>
+								 			<img src="mollio/images/bgrepondre.gif" alt=""/>
 								 			&nbsp;
-								 			<a href="[(#PARAMETRES_FORUM|url_reponse_forum)]">
+								 			<a href="forum.php3?[(#PARAMETRES_FORUM)]">
 								 				<:repondre_message:>
 								 			</a>
 								 		</p>
@@ -139,7 +149,7 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 									 		 <a name="forum#ID_FORUM"></a>
 										 		 <li id="foros">
 											 		 <p>
-												 		 <img src="#DOSSIER_SQUELETTE/images/bgreponse.gif" alt=""/>
+												 		 <img src="mollio/images/bgreponse.gif" alt=""/>
 														 [<:par_auteur:> <a href="mailto:(#EMAIL|antispam)">#NOM</a>,][ (#DATE|date_relative)]
 												 		 [<span class="gras">(#TITRE)</span>]
 												 	</p>
@@ -147,9 +157,9 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 														[(#TEXTE)]
 												 		[<:info_site:>: <a href="(#URL_SITE)" class="spip_out">#NOM_SITE</a>]
 												 		<p>
-												 			<img src="#DOSSIER_SQUELETTE/images/bgrepondre.gif" alt=""/>
+												 			<img src="mollio/images/bgrepondre.gif" alt=""/>
 												 			&nbsp;
-												 			<a href="[(#PARAMETRES_FORUM|url_reponse_forum)]">
+												 			<a href="forum.php3?#PARAMETRES_FORUM">
 												 				<:repondre_message:>
 												 			</a>
 												 		</p>
@@ -175,12 +185,16 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 			-->
 			
 			
-			[(#INCLURE{fond=pie}{lang})]
+			<INCLURE(pie.php3){lang}>
 			
 		</div>
 		
 		<div id="sidebar">
-			[(#INCLURE{fond=article_right_mods}{id_article}{lang})]
+			<INCLURE(mod_traduc.php3){id_article}{lang}>
+			<INCLURE(mod_salida.php3){id_article}{lang}>
+			<INCLURE(mod_artssec.php3){id_article}{lang}>
+			<INCLURE(mod_artsaut.php3){id_article}{lang}>
+	 		<INCLURE(mod_keyword.php3){id_article}{lang}>
 		</div>
 	</div>
 

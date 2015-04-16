@@ -4,7 +4,7 @@
 <ul id="nav-secondary">
 <BOUCLE_Rubriques(RUBRIQUES){id_parent}{par titre}>
 	<li class="active">
-		<a href="[(#URL_RUBRIQUE)]"[(#EXPOSER|class="active",)]>[(#TITRE|supprimer_numero)][(#LOGO_RUBRIQUE||image_reduire{20})]</a>
+		<a href="[(#URL_RUBRIQUE)]"[(#EXPOSER|class="active",)]>[(#TITRE|supprimer_numero)][(#LOGO_RUBRIQUE||reduire_image{20})]</a>
 		<B_bajoRUBRIQUE>
 			<ul>
 				<BOUCLE_bajoRUBRIQUE(RUBRIQUES){id_parent}{par titre}{doublons}>

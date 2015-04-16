@@ -5,7 +5,7 @@
 		<h3><:meme_rubrique:></h3>
 		<ul>
 	 		<BOUCLE_ar(ARTICLES){id_rubrique}{type_mot!=Design}{par hasard}{0,5}{exclus}>
-				[<li><a href="#URL_ARTICLE">[(#LOGO_ARTICLE||image_reduire{20})](#TITRE)</a></li>]
+				[<li><a href="#URL_ARTICLE">[(#LOGO_ARTICLE||reduire_image{20})](#TITRE)</a></li>]
 			</BOUCLE_ar>
 		</ul>
 		</div>

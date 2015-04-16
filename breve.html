@@ -13,39 +13,52 @@ http://creativecommons.org/licenses/GPL/2.0/
 Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
 -->
 <head>
-	[(#INCLURE{fond=css})]
-	[(#INCLURE{fond=header})]
+	<INCLURE(css.php3)>
+	<INCLURE(header.php3)>
 	<title>[(#TITRE|supprimer_numero|textebrut)] - #NOM_SITE_SPIP</title>
-	<link rel="alternate" type="application/rss+xml" title="<:syndiquer_site:>" href="#URL_PAGE{backend-breves}" />
+	<link rel="alternate" type="application/rss+xml" title="#NOM_SITE_SPIP RSS" href="backend.php3"/>
 </head>
+
 <body id="type-c">
 <div id="wrap">
-	[(#INCLURE{fond=cabecera}{id=0}{lang})]
+	<INCLURE(cabecera.php3){id=0}{lang}>
 	<div id="content-wrap">
+	
 		<div id="utility">
-			[(#INCLURE{fond=breve_left_mods}{id_breve}{lang})]
+
+			<INCLURE(menu.php3){lang}>
+			<INCLURE(mod_popul.php3){lang}>
 		</div>
+		
 		<div id="content">
+		
 			<div id="breadcrumb">
-				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique=0}{lang})]
+				<INCLURE(mod_jerarquiasec.php3){id_rubrique=0}{lang}>
 			</div>
-				<h1>[(#LOGO_ARTICLE_RUBRIQUE|right|#URL_BREVE|image_reduire{64})][(#TITRE|supprimer_numero)]</h1>
+				<h1>[(#LOGO_ARTICLE_RUBRIQUE|right|#URL_BREVE|reduire_image{64})][(#TITRE|supprimer_numero)]</h1>
 				<h2>[(#DATE|affdate)]</h2>
 				[(#TEXTE)]
 				[<div class="featurebox">(#NOTES)</div>]
 				[(#NOTES)<hr/>]
 				[<hr/><:enlace:>: <a href="(#URL_SITE)" class="spip_out">#NOM_SITE</a>]			
+			
 			<!--
 			<div class="pagination">
 				<p><span><strong>Previous</strong></span> <span>1</span> <a href="devtodo">2</a> <a href="devtodo">3</a> <a href="devtodo">4</a> <a href="devtodo">5</a> <a href="devtodo"><strong>Next</strong></a></p>
 				<h4>Page 1 of 5</h4>
 			</div>
 			-->
+			
 			<hr/>
-			[(#INCLURE{fond=pie}{lang})]
+			
+			<INCLURE(pie.php3){lang}>
+			
 		</div>
+		
 		<div id="sidebar">
-			[(#INCLURE{fond=breve_right_mods}{id_breve}{lang})]
+			<INCLURE(mod_agenda.php3){lang}>
+			<INCLURE(mod_breves.php3){lang}>
+			<INCLURE(mod_keywordbrev.php3){id_breve}{lang}>
 		</div>
 	</div>
 </div>

@@ -12,22 +12,27 @@ http://creativecommons.org/licenses/GPL/2.0/
 Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (2006)
 -->
 <head>
-	[(#INCLURE{fond=css})]
-	[(#INCLURE{fond=header})]
+	<INCLURE(css.php3)>
+	<INCLURE(header.php3)>
 	<title><:espace_prive:> - #NOM_SITE_SPIP</title>
 	<meta name="Description" content="<:espace_prive:>" />
 </head>
 
 <body id="type-c">
 <div id="wrap">
-	[(#INCLURE{fond=cabecera}{id=6}{lang})]
+	<INCLURE(cabecera.php3){id=6}{lang}>
 	<div id="content-wrap">
+	
 		<div id="utility">
-			[(#INCLURE{fond=login_left_mods}{lang})]
+
+			<INCLURE(menu.php3){lang}>
+			<INCLURE(mod_popul.php3){lang}>
 		</div>
+		
 		<div id="content">
+		
 			<div id="breadcrumb">
-				[(#INCLURE{fond=mod_jerarquiasec}{id_rubrique=0}{lang})]
+				<INCLURE(mod_jerarquiasec.php3){id_rubrique=0}{lang}>
 			</div>
 
 				<h1><:espace_prive:></h1>
@@ -42,12 +47,13 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 			
 			<hr/>
 			
-			[(#INCLURE{fond=pie}{lang})]
+			<INCLURE(pie.php3){lang}>
 			
 		</div>
 		
 		<div id="sidebar">
-			[(#INCLURE{fond=login_right_mods}{lang})]
+			<INCLURE(mod_agenda.php3){lang}>
+			<INCLURE(mod_breves.php3){lang}>
 		</div>
 	</div>
 	

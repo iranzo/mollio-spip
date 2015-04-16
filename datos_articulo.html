@@ -5,16 +5,19 @@
 	</h4>
 	[<span class="thumbnail">
 		<a href="#URL_ARTICLE">
-			(#LOGO_ARTICLE_RUBRIQUE|right||image_reduire{64})
+			(#LOGO_ARTICLE_RUBRIQUE|right||reduire_image{64})
 		</a>
 	</span>]
 	
 	[(#INTRODUCTION|textebrut|justifier)]
-	[<:enviadopor:> (#LESAUTEURS) | ]
+	<B_auteurs_un>
+		<:enviadopor:>
+	<BOUCLE_auteurs_un(AUTEURS) {id_article} {", "}>
+		[<a href="#URL_AUTEUR">(#NOM)</a>]
+	</BOUCLE_auteurs_un>
+		|
+	</B_auteurs_un>
 
 	<BOUCLE_nb_forums(FORUMS){id_article}{plat}></BOUCLE_nb_forums><a href="#URL_ARTICLE#forum">#TOTAL_BOUCLE <:comentarios:></a><//B_nb_forums>
-        | <:visitas:>: #VISITES | <:popularite:> #POPULARITE% | 
-    <:mots_clefs:>: <BOUCLE_keywords(MOTS){id_article}{", "}><a href="#URL_MOT">[(#TITRE|supprimer_tags)]</a></BOUCLE_keywords> | </B_keywords>
-[(#INCLURE{fond=mod_technorati}{id_article}) | ]
-        <a class="morelink" href="#URL_ARTICLE"><:leermas:></a>
+        | <:visitas:>: #VISITES | <:popularite:> #POPULARITE% | <a class="morelink" href="#URL_ARTICLE"><:leermas:></a>
 </BOUCLE_datosart>

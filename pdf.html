@@ -1,0 +1,96 @@
+<?php
+
+$path_pdf = "IMG/_article_PDF/" ;
+$class_path = "mollio/class_pdf/" ;
+$debug=0;
+
+<B_principale>
+<BOUCLE_principale(ARTICLES){id_article}>
+
+$conf_url_site = "#URL_SITE_SPIP";
+$conf_nom_site = "[(#NOM_SITE_SPIP|pdf_first_clean)]";
+
+// Recuperation et definition des differents elements
+
+[$logo_lien="(#URL_ARTICLE)";]
+
+$site="[(#NOM_SITE_SPIP|pdf_first_clean)]";
+$rubrique="<B_rubrique_mere><BOUCLE_rubrique_mere(RUBRIQUES){id_rubrique}>[(#TITRE|supprimer_numero|pdf_first_clean)]</BOUCLE_rubrique_mere></B_rubrique_mere>[(#NOM_SITE_SPIP|pdf_first_clean)]<//B_rubrique_mere>";
+$date="[" . html_entity_decode("<:publicado:>")." : (#DATE_REDAC|affdate|pdf_first_clean), ". html_entity_decode("<:puestonline:>") . " ]" . html_entity_decode("[(#DATE|nom_jour)]"). " [(#DATE|affdate|pdf_first_clean)]";
+$auteur="<BOUCLE_auteurs(AUTEURS){id_article}{", "}>[(#NOM|pdf_first_clean)]</BOUCLE_auteurs>";
+$motsclef="<BOUCLE_keywords(MOTS){id_article}{", "}>[(#TITRE|pdf_first_clean)]</BOUCLE_keywords>";
+$yahoo="--<BOUCLE_yahoo(HIERARCHIE){id_article}> [(#TITRE|supprimer_numero|pdf_first_clean)] -</BOUCLE_yahoo>-";
+
+global $pagina, $resumen;
+$pagina=html_entity_decode("<:page:>");
+$resumen=html_entity_decode("<:resume:>");
+
+[$logo_fichier="(#LOGO_ARTICLE_RUBRIQUE|fichier)";]
+
+
+[$surtitre="(#SURTITRE|pdf_first_clean)";]
+[$titre="(#TITRE|SUPPRIMER_NUMERO|pdf_first_clean)";]
+[$soustitre="(#SOUSTITRE|pdf_first_clean)";]
+[$chapo="(#CHAPO|pdf_first_clean)";]
+[$descriptif="(#DESCRIPTIF|pdf_first_clean)";]
+[$texte="(#TEXTE|pdf_first_clean)";]
+[$ps="(#PS|pdf_first_clean)";]
+[$notes="(#NOTES|pdf_first_clean)";]
+
+$id_article = #ID_ARTICLE;
+
+$files_pdf = "article_".$id_article.".pdf";
+$file_out = $path_pdf . $files_pdf;
+
+if (file_exists($file_out)) {
+clearstatcache ;
+$damo = date(YmdHi , strtotime("#DATE_MODIF")) ;
+$dage = date(YmdHi , filemtime($file_out)) ;
+if ($damo > $dage) {unlink($file_out);}
+}
+</BOUCLE_principale>
+</B_principale>
+$files_pdf = "article_".$id_article.".pdf" ;
+$file_out = $path_pdf . $files_pdf ;
+
+header("Location: index.php");
+exit; 
+<//B_principale>
+
+if ($debug != 0 && file_exists($file_out)) {
+	unlink($file_out);
+}
+
+if (! file_exists($file_out)) {
+
+	define('FPDF_FONTPATH',$class_path.'font/');
+	require_once($class_path.'fpdf.php');
+	require_once($class_path.'lib_pdf_global.php');
+	require_once($class_path.'lib_pdf_spip.php');
+
+	//--------------------------------
+	// Debut génération du PDF
+	//--------------------------------
+	$pdf->debug=$debug;
+	$pdf=new PDF_SPIP();
+	$pdf->Open();
+	$pdf->SetDisplayMode (fullwidth, continuous);
+	$pdf->SetTitle($titre);
+	$pdf->SetCreator($site);
+	$pdf->SetAuthor($auteur);
+	$pdf->SetCompression(false);
+	$pdf->SetSubject($rubrique);
+	$pdf->SetKeywords($motsclef);
+	$pdf->SetMargins(25,25);
+	$pdf->SetAutoPageBreak(auto, 30);
+	$pdf->AjouterChapitre() ;
+
+	// Sortie
+	$pdf->Output( $file_out ) ;
+}
+
+if ($debug == 0) {
+	header("location: ".$file_out."" );
+}
+exit; 
+?>
