@@ -65,6 +65,9 @@
 					<BOUCLE_head_cfg_forum(ARTICLES){id_article}{titre_mot="_has_forum"}{0,1}>
 						<li <?php if (#ID==5) {echo "class=\"active\"";} ?> ><a href="<BOUCLE_art_foros(ARTICLES){titre_mot="_is_forums"}{0,1}>#URL_ARTICLE</BOUCLE_art_foros>"><:forum:></a></li>
 					</BOUCLE_head_cfg_forum>					
+					<BOUCLE_head_cfg_contact(ARTICLES){id_article}{titre_mot="_has_contact"}{0,1}>
+                        <li <?php if (#ID==6) {echo "class=\"active\"";} ?> ><a	href="<BOUCLE_art_contact(ARTICLES){titre_mot="_is_contact"}{0,1}>#URL_ARTICLE"</a>#TITRE</BOUCLE_art_contact></li>
+					</BOUCLE_head_cfg_contact>
 				</BOUCLE_head_cfg_elem>
 			</BOUCLE_head_cfg>
 				<li <?php if (#ID==3) {echo "class=\"active\"";} ?> ><a href="#URL_PAGE{correo}"><:correo:></a></li>
