@@ -39,9 +39,18 @@ Modified for use by SPIP by Pablo.Iranzo@uv.es, http://Alufis35.uv.es/~iranzo/ (
 					<B_articles_liste>
 					<hr/>
 						<h2><:articles:></h2>
-					<BOUCLE_articles_liste(ARTICLES){id_rubrique}{type_mot!="Design"}{par date}{inverse}{"<hr/>"}>
+					<BOUCLE_articles_liste(ARTICLES){id_rubrique}{type_mot!="Design"}{par date}{inverse}{"<hr/>"}{pagination}>
 						[(#INCLURE{fond=datos_articulo}{id_article}{lang})]
 					</BOUCLE_articles_liste>
+					<hr/>
+					<div class="pagination">
+						<p>
+							[(#PAGINATION{page})]
+							<h4>
+								<:leermas:>
+							</h4>
+						</p>
+					</div>
 					</B_articles_liste>
 					<B_last_BREVES>
 					<hr/>
